@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".RegisterPage">
 
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/edit_text"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:ems="10"
+        android:layout_marginTop="150dp"
+        android:inputType="textPersonName"
+        android:hint="@string/pochta"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/edit_text"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/parol"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:ems="10"
+        android:hint="@string/parolni_qaytadan_kiriting"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.92"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
