@@ -31,6 +31,7 @@ class LoginPage : AppCompatActivity() {
         txtLogPass = findViewById(R.id.txtLogPass)
         btnLogLogin = findViewById(R.id.btnLogLogin)
         txtLogReg = findViewById(R.id.txtLogReg)
+        val gson = Gson()
 
         btnLogLogin?.setOnClickListener {
             val email = ediLogEmail?.text.toString()
@@ -50,7 +51,6 @@ class LoginPage : AppCompatActivity() {
                     user?.enqueue(object : retrofit2.Callback<Any> {
                         override fun onResponse(call: Call<Any>, response: retrofit2.Response<Any>) {
                             if (response.code() == 400) {
-                                val gson = Gson()
                                 val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 val message = json.get("error").asString
                                 Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
