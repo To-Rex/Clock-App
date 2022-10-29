@@ -42,7 +42,7 @@ class LoginPage : AppCompatActivity() {
                 } else if (password.length < 4) {
                     ediLogPas?.error = "Password must be at least 5 characters"
                 } else {
-                    val loginModels = LoginModels(email, password)
+                    val loginModels = LoginModels(email, password,"")
                     val user: Call<LoginModels> = ApiCleint().userService.login(loginModels)
                     user.enqueue(object : retrofit2.Callback<LoginModels> {
                         override fun onResponse(
@@ -52,13 +52,13 @@ class LoginPage : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 Toast.makeText(this@LoginPage, response.body()?.token.toString(), Toast.LENGTH_SHORT).show()
                             } else {
+                                loginModels.error = response.errorBody().toString()
                                 Toast.makeText(this@LoginPage, response.body()?.error.toString(), Toast.LENGTH_SHORT).show()
                             }
                         }
 
                         override fun onFailure(call: Call<LoginModels>, t: Throwable) {
-                            Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
                         }
                     })
                 }
