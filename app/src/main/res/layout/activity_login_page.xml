@@ -67,6 +67,7 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:text="@string/kirish"
         android:textColor="@color/white"
         android:background="@drawable/button_fon"
