@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        actionBar?.hide()
         super.onCreate(savedInstanceState)
+        actionBar?.hide()
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
         Handler(Looper.getMainLooper()).postDelayed(
