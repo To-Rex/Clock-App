@@ -48,24 +48,23 @@ class LoginPage : AppCompatActivity() {
                 } else if (password.length < 4) {
                     ediLogPas?.error = "Password must be at least 5 characters"
                 } else {
-                    val loginModels = LoginModels(email, password,"")
+                    val loginModels = LoginModels(email, password)
                     val user: Call<Any>? = ApiCleint().userService.login(loginModels)
                     user?.enqueue(object : retrofit2.Callback<Any> {
                         override fun onResponse(call: Call<Any>, response: retrofit2.Response<Any>) {
-
-                            if (response.isSuccessful) {
-                                json  = Gson().fromJson(response.body().toString(), JsonObject::class.java)
-                                println("token1 "+json.get("token").asString)
-                                Toast.makeText(this@LoginPage, json.get("token").asString, Toast.LENGTH_SHORT).show()
-                            } else {
-                                json  = Gson().fromJson(response.body().toString(), JsonObject::class.java)
-                                println("error "+json.get("error").asString)
-                                Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
+                            //get error message from server and show it
+                            if (response.code() == 400) {
+                                val gson = Gson()
+                                val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                val message = json.get("error").asString
+                                Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
+                            } else if (response.code() == 200) {
+                                Toast.makeText(this@LoginPage, "Login successful", Toast.LENGTH_SHORT).show()
                             }
                         }
 
                         override fun onFailure(call: Call<Any>, t: Throwable) {
-                            Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginPage, "Login Failed 😜", Toast.LENGTH_SHORT).show()
                         }
                     })
 

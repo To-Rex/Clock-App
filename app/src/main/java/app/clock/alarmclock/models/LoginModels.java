@@ -6,10 +6,9 @@ public class LoginModels {
     String token;
     String error;
 
-    public LoginModels(String email, String password,String error) {
+    public LoginModels(String email, String password) {
         this.email = email;
         this.password = password;
-        this.error = error;
     }
 
     public String getEmail() {
