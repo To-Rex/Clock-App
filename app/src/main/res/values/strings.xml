@@ -2,4 +2,6 @@
     <string name="app_name">AlarmClock</string>
     <string name="pochta">Pochta</string>
     <string name="parol">Parol</string>
+    <string name="parolni_unutdingizmi">Parolni unutdingizmi?</string>
+    <string name="kirish">Kirish</string>
 </resources>
