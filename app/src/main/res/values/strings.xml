@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AlarmClock</string>
     <string name="pochta">Pochta</string>
+    <string name="parol">Parol</string>
 </resources>
