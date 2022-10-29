@@ -21,7 +21,7 @@
         app:layout_constraintGuide_percent="0.92"/>
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/ediLogEmail"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:textColor="@color/teal_700"
@@ -38,7 +38,7 @@
         tools:ignore="Autofill" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/ediLogPas"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:textColor="@color/teal_700"
@@ -51,11 +51,11 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/ediLogEmail"
         tools:ignore="Autofill" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtLogPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -63,10 +63,10 @@
         android:layout_marginEnd="5dp"
         android:text="@string/parolni_unutdingizmi"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/ediLogPas" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLogLogin"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -76,7 +76,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLogPass" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -95,7 +95,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4" />
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtLogReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
