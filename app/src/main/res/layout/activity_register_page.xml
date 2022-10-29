@@ -19,7 +19,8 @@
         android:hint="@string/pochta"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextTextPassword2"
@@ -34,7 +35,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextTextPassword3"
@@ -49,7 +51,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
+        tools:ignore="Autofill" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -67,7 +70,7 @@
 
     <Button
         android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="25dp"
