@@ -8,17 +8,9 @@ import android.os.Looper
 
 class RegisterPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        actionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
-
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                val intent = Intent(this, LoginPage::class.java)
-                startActivity(intent)
-                finish()
-            },
-            3000
-        )
 
     }
 }
