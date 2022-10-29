@@ -24,6 +24,7 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:textColor="@color/teal_700"
         android:background="@drawable/edit_text"
         android:layout_marginTop="150dp"
         android:paddingStart="14dp"
