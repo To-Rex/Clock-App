@@ -10,20 +10,16 @@ import android.widget.Toast
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import retrofit2.Call
-import java.util.Objects
 
 class LoginPage : AppCompatActivity() {
 
-    var ediLogEmail: EditText? = null
-    var ediLogPas: EditText? = null
-    var txtLogPass: TextView? = null
-    var btnLogLogin: Button? = null
-    var txtLogReg: TextView? = null
-
-    var json = JsonObject()
+    private var ediLogEmail: EditText? = null
+    private var ediLogPas: EditText? = null
+    private var txtLogPass: TextView? = null
+    private var btnLogLogin: Button? = null
+    private var txtLogReg: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

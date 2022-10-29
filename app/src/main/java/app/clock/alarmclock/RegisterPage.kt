@@ -8,7 +8,7 @@ import android.os.Looper
 
 class RegisterPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        actionBar?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
 
