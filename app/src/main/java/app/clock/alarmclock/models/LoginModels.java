@@ -4,6 +4,7 @@ public class LoginModels {
     String email;
     String password;
     String token;
+    String error;
 
     public LoginModels(String email, String password) {
         this.email = email;
@@ -32,5 +33,13 @@ public class LoginModels {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }
