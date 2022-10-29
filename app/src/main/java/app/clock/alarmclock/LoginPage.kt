@@ -8,7 +8,11 @@ import android.widget.TextView
 import android.widget.Toast
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import retrofit2.Call
+import java.util.Objects
 
 class LoginPage : AppCompatActivity() {
 
@@ -17,6 +21,8 @@ class LoginPage : AppCompatActivity() {
     var txtLogPass: TextView? = null
     var btnLogLogin: Button? = null
     var txtLogReg: TextView? = null
+
+    var json = JsonObject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,24 +49,26 @@ class LoginPage : AppCompatActivity() {
                     ediLogPas?.error = "Password must be at least 5 characters"
                 } else {
                     val loginModels = LoginModels(email, password,"")
-                    val user: Call<LoginModels> = ApiCleint().userService.login(loginModels)
-                    user.enqueue(object : retrofit2.Callback<LoginModels> {
-                        override fun onResponse(
-                            call: Call<LoginModels>,
-                            response: retrofit2.Response<LoginModels>
-                        ) {
+                    val user: Call<Any>? = ApiCleint().userService.login(loginModels)
+                    user?.enqueue(object : retrofit2.Callback<Any> {
+                        override fun onResponse(call: Call<Any>, response: retrofit2.Response<Any>) {
+
                             if (response.isSuccessful) {
-                                Toast.makeText(this@LoginPage, response.body()?.token.toString(), Toast.LENGTH_SHORT).show()
+                                json  = Gson().fromJson(response.body().toString(), JsonObject::class.java)
+                                println("token1 "+json.get("token").asString)
+                                Toast.makeText(this@LoginPage, json.get("token").asString, Toast.LENGTH_SHORT).show()
                             } else {
-                                loginModels.error = response.errorBody().toString()
-                                Toast.makeText(this@LoginPage, response.body()?.error.toString(), Toast.LENGTH_SHORT).show()
+                                json  = Gson().fromJson(response.body().toString(), JsonObject::class.java)
+                                println("error "+json.get("error").asString)
+                                Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
                             }
                         }
 
-                        override fun onFailure(call: Call<LoginModels>, t: Throwable) {
+                        override fun onFailure(call: Call<Any>, t: Throwable) {
                             Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
                         }
                     })
+
                 }
             }
         }

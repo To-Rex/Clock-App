@@ -7,5 +7,5 @@ import retrofit2.http.POST;
 
 public interface UserService {
     @POST("login")
-    Call<LoginModels> login(@Body LoginModels loginModels);
+    Call<Object> login(@Body LoginModels loginModels);
 }
