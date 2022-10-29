@@ -1,5 +1,6 @@
 package app.clock.alarmclock
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -52,7 +53,6 @@ class LoginPage : AppCompatActivity() {
                     val user: Call<Any>? = ApiCleint().userService.login(loginModels)
                     user?.enqueue(object : retrofit2.Callback<Any> {
                         override fun onResponse(call: Call<Any>, response: retrofit2.Response<Any>) {
-                            //get error message from server and show it
                             if (response.code() == 400) {
                                 val gson = Gson()
                                 val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
@@ -73,7 +73,7 @@ class LoginPage : AppCompatActivity() {
         }
 
         txtLogReg?.setOnClickListener {
-            Toast.makeText(this, "Register", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, RegisterPage::class.java))
         }
     }
 
