@@ -23,7 +23,8 @@
     <EditText
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@color/edit_text"
         android:layout_marginTop="150dp"
         android:ems="10"
         android:inputType="textEmailAddress"
