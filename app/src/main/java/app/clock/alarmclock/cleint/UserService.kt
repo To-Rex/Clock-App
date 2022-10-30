@@ -4,6 +4,7 @@ import retrofit2.http.POST
 import app.clock.alarmclock.models.LoginModels
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 
 interface UserService {
     @POST("login")
@@ -16,4 +17,7 @@ interface UserService {
     fun verefyuser(@Body loginModels: LoginModels?): Call<Any?>?
     @POST("cheskverefy")
     fun cheskverefy(@Body loginModels: LoginModels?): Call<Any?>?
+    @GET("gettimes")
+    fun gettimes(): Call<Any?>?
+
 }
