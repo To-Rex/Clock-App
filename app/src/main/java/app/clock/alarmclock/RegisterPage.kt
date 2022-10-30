@@ -8,8 +8,11 @@ import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 
 class RegisterPage : AppCompatActivity() {
@@ -30,6 +33,7 @@ class RegisterPage : AppCompatActivity() {
         ediRegRePas = findViewById(R.id.ediRegRePas)
         btnRegOk = findViewById(R.id.btnRegOk)
         txtRegEnter = findViewById(R.id.txtRegEnter)
+        val gson = Gson()
 
         btnRegOk?.setOnClickListener {
             val email = ediRegEmail?.text.toString()
@@ -64,9 +68,14 @@ class RegisterPage : AppCompatActivity() {
             val register: Call<Any?>? = ApiCleint().userService.register(loginModels)
             register?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
-                    if (response.isSuccessful) {
-                        val intent = Intent(this@RegisterPage, LoginPage::class.java)
-                        startActivity(intent)
+                    if (response.code() == 400) {
+                        val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                        val message = json.get("error").asString
+                        Toast.makeText(this@RegisterPage, message, Toast.LENGTH_SHORT).show()
+                    } else if (response.code() == 200) {
+                        val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
+                        val token = json.get("token").asString
+                        val intent = Intent(this@RegisterPage, MainActivity::class.java)
                     }
                 }
 
