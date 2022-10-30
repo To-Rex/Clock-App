@@ -62,7 +62,7 @@
         tools:ignore="TextContrastCheck" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progressVer"
         style="?android:attr/progressBarStyle"
         android:visibility="gone"
         android:layout_width="wrap_content"
