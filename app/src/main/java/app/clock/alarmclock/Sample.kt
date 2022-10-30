@@ -8,5 +8,6 @@ class Sample : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_sample)
+
     }
 }
