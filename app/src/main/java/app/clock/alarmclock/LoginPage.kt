@@ -51,23 +51,23 @@ class LoginPage : AppCompatActivity() {
                     user?.enqueue(object : retrofit2.Callback<Any?> {
                         override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                             if (response.code() == 400) {
-                                val jsonObject = gson.toJson(response.body())
-                                val json = gson.fromJson(jsonObject, JsonObject::class.java)
+                                val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 val message = json.get("error").asString
                                 Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
-                            }
-                            if(response.code() == 200) {
-                                val jsonObject = gson.toJson(response.body())
-                                val json = gson.fromJson(jsonObject, JsonObject::class.java)
+                            } else if (response.code() == 200) {
+                                val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
+
                                 Toast.makeText(this@LoginPage, token, Toast.LENGTH_SHORT).show()
                             }
                         }
 
                         override fun onFailure(call: Call<Any?>, t: Throwable) {
-                            Toast.makeText(this@LoginPage, "Login failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginPage, "Login Failed", Toast.LENGTH_SHORT).show()
                         }
                     })
+
+
                 }
             }
         }
