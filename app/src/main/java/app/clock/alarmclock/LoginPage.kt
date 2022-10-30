@@ -26,6 +26,7 @@ class LoginPage : AppCompatActivity() {
     var json: JsonObject? = null
     private var sharedPreferences: SharedPreferences? = null
     var message: String? = null
+    var isLoading: Boolean? = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,7 @@ class LoginPage : AppCompatActivity() {
                 } else if (password.length < 4) {
                     ediLogPas?.error = "Password must be at least 5 characters"
                 } else {
+                    isLoading = true
                     val loginModels = LoginModels(email, password)
                     val user: Call<Any?>? = ApiCleint().userService.login(loginModels)
                     user?.enqueue(object : retrofit2.Callback<Any?> {
