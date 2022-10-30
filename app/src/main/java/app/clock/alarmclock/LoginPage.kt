@@ -1,11 +1,13 @@
 package app.clock.alarmclock
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -27,7 +29,9 @@ class LoginPage : AppCompatActivity() {
     private var sharedPreferences: SharedPreferences? = null
     var message: String? = null
     var isLoading: Boolean? = false
+    var progressLog: ProgressBar? = null
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -38,6 +42,7 @@ class LoginPage : AppCompatActivity() {
         txtLogPass = findViewById(R.id.txtLogPass)
         btnLogLogin = findViewById(R.id.btnLogLogin)
         txtLogReg = findViewById(R.id.txtLogReg)
+        progressLog = findViewById(R.id.progressLog)
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         val gson = Gson()
 
@@ -59,6 +64,8 @@ class LoginPage : AppCompatActivity() {
                     ediLogPas?.error = "Password must be at least 5 characters"
                 } else {
                     isLoading = true
+                    progressLog?.visibility = ProgressBar.VISIBLE
+                    btnLogLogin?.visibility = Button.GONE
                     val loginModels = LoginModels(email, password)
                     val user: Call<Any?>? = ApiCleint().userService.login(loginModels)
                     user?.enqueue(object : retrofit2.Callback<Any?> {
@@ -72,13 +79,23 @@ class LoginPage : AppCompatActivity() {
                                         .setTitle("DIQQAT!")
                                         .setMessage("Sizning hisobingiz bloklangan. Iltimos, administrator bilan bog'laning")
                                         .setPositiveButton("OK") { dialog, _ ->
+                                            isLoading = false
+                                            progressLog?.visibility = ProgressBar.GONE
+                                            btnLogLogin?.visibility = Button.VISIBLE
                                             dialog.dismiss()
                                         }
                                         .show()
+                                }else{
+                                    isLoading = false
+                                    progressLog?.visibility = ProgressBar.GONE
+                                    btnLogLogin?.visibility = Button.VISIBLE
                                 }
                                 return
                             }
                             if (response.code() == 400) {
+                                isLoading = false
+                                progressLog?.visibility = ProgressBar.GONE
+                                btnLogLogin?.visibility = Button.VISIBLE
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 var message = json?.get("error")?.asString
                                 if (message == "email is not verified") {
@@ -86,15 +103,26 @@ class LoginPage : AppCompatActivity() {
                                         .setTitle("DIQQAT!")
                                         .setMessage("Hisobingiz Tasdiqlanmagan. Tasdiqlash uchun kodni kiriting")
                                         .setPositiveButton("Tasdiqlash") { dialog, _ ->
+                                            isLoading = true
+                                            progressLog?.visibility = ProgressBar.VISIBLE
+                                            btnLogLogin?.visibility = Button.GONE
                                             val resendVeRefy: Call<Any?>? = ApiCleint().userService.resendverefy(email?.let { LoginModels(it, "") })
                                             resendVeRefy?.enqueue(object : retrofit2.Callback<Any?> {
                                                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                                                     if (response.code() == 400) {
                                                         json = Gson().fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                                         message = json?.get("error")?.asString
-                                                        Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
+                                                        if(message == "email is already verified"){
+                                                            Toast.makeText(this@LoginPage, "Hisobingiz allaqachon tasdiqlangan", Toast.LENGTH_SHORT).show()
+                                                            isLoading = false
+                                                            progressLog?.visibility = ProgressBar.GONE
+                                                            btnLogLogin?.visibility = Button.VISIBLE
+                                                        }
                                                     } else {
                                                         if (response.code() == 200) {
+                                                            isLoading = false
+                                                            progressLog?.visibility = ProgressBar.GONE
+                                                            btnLogLogin?.visibility = Button.VISIBLE
                                                             json = Gson().fromJson(response.body().toString(), JsonObject::class.java)
                                                             veRey = json?.get("verefyCode")?.asString
                                                             Toast.makeText(this@LoginPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
@@ -108,6 +136,9 @@ class LoginPage : AppCompatActivity() {
                                                     }
                                                 }
                                                 override fun onFailure(call: Call<Any?>, t: Throwable) {
+                                                    isLoading = false
+                                                    progressLog?.visibility = ProgressBar.GONE
+                                                    btnLogLogin?.visibility = Button.VISIBLE
                                                     t.printStackTrace()
                                                 }
                                             })
@@ -118,6 +149,7 @@ class LoginPage : AppCompatActivity() {
                                     return
                                 }
                             } else if (response.code() == 200) {
+                                isLoading = false
                                 val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
                                 val editor = sharedPreferences?.edit()
