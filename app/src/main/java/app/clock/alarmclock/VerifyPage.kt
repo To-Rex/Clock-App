@@ -1,6 +1,7 @@
 package app.clock.alarmclock
 
 import android.annotation.SuppressLint
+import android.graphics.Color.red
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -25,13 +26,16 @@ class VerifyPage : AppCompatActivity() {
         txtVerTime = findViewById(R.id.txtVerTime)
         btnVerOk = findViewById(R.id.btnVerOk)
 
-        object : CountDownTimer(20000, 1000) {
+        object : CountDownTimer(5000, 1000) {
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
-                txtVerTime?.text = "seconds remaining: " + millisUntilFinished / 1000
+                txtVerTime?.text = "00: " + millisUntilFinished / 1000
             }
 
+            @SuppressLint("SetTextI18n", "ResourceAsColor")
             override fun onFinish() {
-                txtVerTime?.text = "Time's finished!"
+                txtVerTime?.text = "Qayta urinib ko'ring"
+                txtVerTime?.setTextColor(R.color.purple_700)
             }
         }.start()
     }
