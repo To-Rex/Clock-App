@@ -39,6 +39,7 @@ class Sample : AppCompatActivity() {
                         getTimes.times = times.getString(i)
                         getTimes.switchs = switchs.getString(i)
                         getTimes.coments = coments.getString(i)
+                        Toast.makeText(this@Sample, getTimes.times, Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
