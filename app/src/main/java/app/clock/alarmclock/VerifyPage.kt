@@ -46,6 +46,10 @@ class VerifyPage : AppCompatActivity() {
         val gson = Gson()
         codeTimersText()
 
+        txtVerTime?.setOnClickListener {
+            finish()
+        }
+
         btnVerOk?.setOnClickListener {
             val code = ediVerCode?.text.toString()
             if (code.isEmpty()) {
@@ -65,6 +69,10 @@ class VerifyPage : AppCompatActivity() {
                     if (response.code() == 400) {
                         val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                         val message = json.get("error").asString
+                        if (message == "email is incorrect"){
+                            Toast.makeText(this@VerifyPage, "Email noto'g'ri", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
                         Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
                     } else {
                         if (response.code() == 200) {
