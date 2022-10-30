@@ -100,10 +100,9 @@ class RegisterPage : AppCompatActivity() {
                         intent.putExtra("veRey", verefy)
                         intent.putExtra("email", email)
                         startActivity(intent)
-                        Toast.makeText(this@RegisterPage, token, Toast.LENGTH_SHORT).show()
-                        Toast.makeText(this@RegisterPage, verefy, Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         ediRegEmail?.error = "Email is already taken"
