@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import app.clock.alarmclock.adapters.DataAdapters
@@ -25,6 +26,7 @@ class Sample : AppCompatActivity() {
     private var imgSampleSet: ImageView? = null
     private var progressSample: ProgressBar? = null
     private var floatRefresh: FloatingActionButton? = null
+    private var floatAdd: FloatingActionButton? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,7 @@ class Sample : AppCompatActivity() {
         progressSample = findViewById(R.id.progressSampe)
         imgSampleSet = findViewById(R.id.imgSamleSet)
         floatRefresh = findViewById(R.id.floatRefresh)
+        floatAdd = findViewById(R.id.floatAdd)
 
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
@@ -51,10 +54,14 @@ class Sample : AppCompatActivity() {
         imgSampleSet?.setOnClickListener {
             startActivity(Intent(this, SettingsPage::class.java))
         }
+
         floatRefresh?.setOnClickListener {
             timeList?.clear()
             dataAdapters?.notifyDataSetChanged()
             getAllTimes()
+        }
+        floatAdd?.setOnClickListener {
+            addTime()
         }
     }
     private fun getAllTimes() {
@@ -86,4 +93,11 @@ class Sample : AppCompatActivity() {
             }
         })
     }
+
+    @SuppressLint("InflateParams")
+    private fun addTime(){
+        val inflater = LayoutInflater.from(this)
+        val view = inflater.inflate(R.layout.add_item, null)
+    }
+
 }
