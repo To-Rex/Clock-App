@@ -95,7 +95,26 @@ class VerifyPage : AppCompatActivity() {
             override fun onFinish() {
                 txtVerTime?.text = "Qayta urinib ko'ring"
                 txtVerTime?.setTextColor(R.color.teal_700)
-                txtVerTime?.setOnClickListener { codeTimersText() }
+                txtVerTime?.setOnClickListener {
+                    codeTimersText()
+                    val resendverefy: Call<Any?>? = ApiCleint().userService.resendverefy(email?.let { LoginModels(it, "") })
+                    resendverefy?.enqueue(object : retrofit2.Callback<Any?> {
+                        override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                            if (response.code() == 400) {
+                                val json = Gson().fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                val message = json.get("error").asString
+                                Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
+                            } else {
+                                if (response.code() == 200) {
+                                    Toast.makeText(this@VerifyPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        override fun onFailure(call: Call<Any?>, t: Throwable) {
+                            t.printStackTrace()
+                        }
+                    })
+                }
             }
         }.start()
     }
