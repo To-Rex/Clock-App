@@ -32,7 +32,10 @@ class LoginPage : AppCompatActivity() {
         btnLogLogin = findViewById(R.id.btnLogLogin)
         txtLogReg = findViewById(R.id.txtLogReg)
         val gson = Gson()
-
+        btnLogLogin?.setOnLongClickListener{
+            startActivity(Intent(this, VerifyPage::class.java))
+            false
+        }
         btnLogLogin?.setOnClickListener {
             val email = ediLogEmail?.text.toString()
             val password = ediLogPas?.text.toString()
