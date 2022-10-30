@@ -18,13 +18,12 @@ import retrofit2.Call
 class Sample : AppCompatActivity() {
 
     private var sharedPreferences: SharedPreferences? = null
-    var token = ""
+    private var token = ""
     var listSample: ListView? = null
     private var dataAdapters: DataAdapters? = null
     private var timeList: ArrayList<GetTimes>? = null
-    private var imgSamleSet: ImageView? = null
-    private var progressSampe: ProgressBar? = null
-    private var isLoading: Boolean = false
+    private var imgSampleSet: ImageView? = null
+    private var progressSample: ProgressBar? = null
     private var floatRefresh: FloatingActionButton? = null
 
     @SuppressLint("MissingInflatedId")
@@ -34,8 +33,8 @@ class Sample : AppCompatActivity() {
         setContentView(R.layout.activity_sample)
 
         listSample = findViewById(R.id.listSample)
-        progressSampe = findViewById(R.id.progressSampe)
-        imgSamleSet = findViewById(R.id.imgSamleSet)
+        progressSample = findViewById(R.id.progressSampe)
+        imgSampleSet = findViewById(R.id.imgSamleSet)
         floatRefresh = findViewById(R.id.floatRefresh)
 
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
@@ -49,7 +48,7 @@ class Sample : AppCompatActivity() {
 
         getAllTimes()
 
-        imgSamleSet?.setOnClickListener {
+        imgSampleSet?.setOnClickListener {
             startActivity(Intent(this, SettingsPage::class.java))
         }
         floatRefresh?.setOnClickListener {
@@ -59,22 +58,22 @@ class Sample : AppCompatActivity() {
         }
     }
     private fun getAllTimes() {
-        val gettime: Call<Any?>? = ApiCleint().userService.gettimes("Bearer $token")
-        gettime?.enqueue(object : retrofit2.Callback<Any?> {
+        val getTime: Call<Any?>? = ApiCleint().userService.gettimes("Bearer $token")
+        getTime?.enqueue(object : retrofit2.Callback<Any?> {
             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                 if (response.isSuccessful) {
                     listSample?.visibility = View.VISIBLE
-                    progressSampe?.visibility = View.GONE
+                    progressSample?.visibility = View.GONE
                     val gson = Gson()
                     val json = gson.toJson(response.body())
                     val jsonObject = JSONObject(json)
                     val times = jsonObject.getJSONArray("times")
-                    val switchs = jsonObject.getJSONArray("switchs")
-                    val coments = jsonObject.getJSONArray("coments")
+                    val switchS = jsonObject.getJSONArray("switchs")
+                    val comments = jsonObject.getJSONArray("coments")
                     for (i in 0 until times.length()) {
                         val time = times.getString(i)
-                        val switchBox = switchs.getString(i)
-                        val coMntS = coments.getString(i)
+                        val switchBox = switchS.getString(i)
+                        val coMntS = comments.getString(i)
                         timeList?.add(GetTimes(time, coMntS,switchBox))
                         dataAdapters?.notifyDataSetChanged()
                     }
