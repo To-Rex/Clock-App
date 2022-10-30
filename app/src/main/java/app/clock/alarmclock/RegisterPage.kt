@@ -75,7 +75,9 @@ class RegisterPage : AppCompatActivity() {
                     } else if (response.code() == 200) {
                         val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                         val token = json.get("token").asString
-                        Toast.makeText(this@RegisterPage, "Register Success", Toast.LENGTH_SHORT).show()
+                        val verefy = json.get("verefy").asString
+                        Toast.makeText(this@RegisterPage, token, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterPage, verefy, Toast.LENGTH_SHORT).show()
                     }
                 }
 
