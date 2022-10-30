@@ -1,5 +1,6 @@
 package app.clock.alarmclock.cleint
 
+import app.clock.alarmclock.models.GetTimes
 import retrofit2.http.POST
 import app.clock.alarmclock.models.LoginModels
 import retrofit2.Call
@@ -18,6 +19,6 @@ interface UserService {
     @POST("cheskverefy")
     fun cheskverefy(@Body loginModels: LoginModels?): Call<Any?>?
     @GET("gettimes")
-    fun gettimes(): Call<Any?>?
+    fun gettimes(): Call<GetTimes>?
 
 }
