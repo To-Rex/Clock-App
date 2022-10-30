@@ -66,11 +66,14 @@ class VerifyPage : AppCompatActivity() {
                             Toast.makeText(this@VerifyPage, "Email noto'g'ri", Toast.LENGTH_SHORT).show()
                             finish()
                         }
+                        if (message == "email is already verified"){
+                            Toast.makeText(this@VerifyPage, "Email tasdiqlangan", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
                         Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
                     } else {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
-                            //save token shared preferences
                             sharedPreferences?.edit()?.putString("token", token)?.apply()
                             startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
                             finish()
@@ -106,6 +109,8 @@ class VerifyPage : AppCompatActivity() {
                                 Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
                             } else {
                                 if (response.code() == 200) {
+                                    val json = Gson().fromJson(response.body().toString(), JsonObject::class.java)
+                                    veRey = json.get("verefyCode").asString
                                     Toast.makeText(this@VerifyPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
                                 }
                             }
