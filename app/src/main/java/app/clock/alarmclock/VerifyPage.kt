@@ -60,63 +60,41 @@ class VerifyPage : AppCompatActivity() {
             verifyUser?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.code() == 400) {
-                        val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                        val json = gson.fromJson(
+                            response.errorBody()?.charStream(),
+                            JsonObject::class.java
+                        )
                         val message = json.get("error").asString
-                        if (message == "email is incorrect"){
-                            Toast.makeText(this@VerifyPage, "Email noto'g'ri", Toast.LENGTH_SHORT).show()
+                        if (message == "email is incorrect") {
+                            Toast.makeText(this@VerifyPage, "Email noto'g'ri", Toast.LENGTH_SHORT)
+                                .show()
                             finish()
                         }
-                        if (message == "email is already verified"){
-                            Toast.makeText(this@VerifyPage, "Email tasdiqlangan", Toast.LENGTH_SHORT).show()
+                        if (message == "email is already verified") {
+                            Toast.makeText(
+                                this@VerifyPage,
+                                "Email tasdiqlangan",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             finish()
                         }
 
                     } else {
                         if (response.code() == 200) {
-                            Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
-                            if (token?.length!! < 1) {
-                                    sharedPreferences?.edit()?.putString("token", token)?.apply()
-                                Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
-                                    startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
-                                    finish()
-                                }
-                            }else{
-                                val checkVerify: Call<Any?>? = ApiCleint().userService.cheskverefy(loginModels)
-                                checkVerify?.enqueue(object : retrofit2.Callback<Any?> {
-                                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
-                                        if (response.code() == 200) {
-                                            val json = gson.fromJson(
-                                                response.body().toString(),
-                                                JsonObject::class.java
-                                            )
-                                            val token = json.get("token").asString
-                                            Toast.makeText(this@VerifyPage, "Ajotib $token", Toast.LENGTH_SHORT).show()
-                                            Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
-                                            sharedPreferences?.edit()?.putString("token", token)
-                                                ?.apply()
-                                            startActivity(
-                                                intent.setClass(
-                                                    this@VerifyPage,
-                                                    Sample::class.java
-                                                )
-                                            )
-                                            finish()
-                                        }
-                                    }
-
-                                    override fun onFailure(call: Call<Any?>, t: Throwable) {
-                                        Toast.makeText(
-                                            this@VerifyPage, "Internet bilan bog'lanishda xatolik", Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                })
-                            }
-
+                            Toast.makeText(
+                                this@VerifyPage,
+                                "Siz ro'yxatdan o'tdingiz",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            sharedPreferences?.edit()?.putString("token", token)?.apply()
+                            startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
+                            finish()
                         }
                     }
+                }
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@VerifyPage, "Internet bilan bog'lanishda xatolik", Toast.LENGTH_SHORT).show()
                 }
             })
         }
