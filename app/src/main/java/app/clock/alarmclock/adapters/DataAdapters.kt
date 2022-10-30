@@ -36,8 +36,8 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
         val txtTime = view.findViewById<TextView>(R.id.txtTimes)
-       val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
-       val switchItem = view.findViewById<View>(R.id.switchItem) as TextView
+        val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
+        val switchItem = view.findViewById<View>(R.id.switchItem) as TextView
 
         txtTime.text = timeList?.get(position)?.times
         txtComents.text = timeList?.get(position)?.coments
