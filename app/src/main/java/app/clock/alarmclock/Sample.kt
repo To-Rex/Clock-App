@@ -67,9 +67,9 @@ class Sample : AppCompatActivity() {
                     val gson = Gson()
                     val json = gson.toJson(response.body())
                     val jsonObject = JSONObject(json)
-                    val times = jsonObject.getJSONArray("times")
-                    val switchS = jsonObject.getJSONArray("switchs")
-                    val comments = jsonObject.getJSONArray("coments")
+                    val times = jsonObject.getJSONArray(getString(R.string.time))
+                    val switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
+                    val comments = jsonObject.getJSONArray(getString(R.string.comment))
                     for (i in 0 until times.length()) {
                         val time = times.getString(i)
                         val switchBox = switchS.getString(i)
