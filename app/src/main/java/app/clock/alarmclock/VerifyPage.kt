@@ -75,7 +75,10 @@ class VerifyPage : AppCompatActivity() {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
                             if (token != null) {
                                 Toast.makeText(this@VerifyPage, "Yaxshi", Toast.LENGTH_SHORT).show()
-                                sharedPreferences?.edit()?.putString("token", token)?.apply()
+                                if (token?.length!! < 1) {
+                                    Toast.makeText(this@VerifyPage, "Token noto'g'ri", Toast.LENGTH_SHORT).show()
+                                    return
+                                }
                                 sharedPreferences?.edit()?.putString("token", token)?.apply()
                                 startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
                                 finish()
@@ -89,7 +92,8 @@ class VerifyPage : AppCompatActivity() {
                                                 JsonObject::class.java
                                             )
                                             val token = json.get("token").asString
-                                            Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz $token", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(this@VerifyPage, "Ajotib $token", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
                                             sharedPreferences?.edit()?.putString("token", token)
                                                 ?.apply()
                                             startActivity(
