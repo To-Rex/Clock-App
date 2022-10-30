@@ -8,4 +8,7 @@ import retrofit2.http.Body
 interface UserService {
     @POST("login")
     fun login(@Body loginModels: LoginModels?): Call<Any?>?
+    @POST("register")
+    fun register(@Body loginModels: LoginModels?): Call<Any?>?
+
 }
