@@ -74,9 +74,8 @@ class LoginPage : AppCompatActivity() {
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 message = json?.get("error")?.asString
                                 if (message == "user is blocked") {
-                                    Toast.makeText(this@LoginPage, "Diqqat!", Toast.LENGTH_SHORT).show()
                                     AlertDialog.Builder(this@LoginPage)
-                                        .setTitle("DIQQAT!")
+                                        .setTitle("Diqqat!")
                                         .setMessage("Sizning hisobingiz bloklangan. Iltimos, administrator bilan bog'laning")
                                         .setPositiveButton("OK") { dialog, _ ->
                                             isLoading = false
@@ -142,6 +141,7 @@ class LoginPage : AppCompatActivity() {
                                                     }
                                                 }
                                                 override fun onFailure(call: Call<Any?>, t: Throwable) {
+                                                    Toast.makeText(this@LoginPage, "Internet bilan bog'lanishda xatolik", Toast.LENGTH_SHORT).show()
                                                     isLoading = false
                                                     progressLog?.visibility = ProgressBar.GONE
                                                     btnLogLogin?.visibility = Button.VISIBLE
@@ -164,7 +164,6 @@ class LoginPage : AppCompatActivity() {
                                 editor?.putString("token", token)?.apply()
                                 startActivity(Intent(this@LoginPage, Sample::class.java))
                                 finish()
-                                Toast.makeText(this@LoginPage, token, Toast.LENGTH_SHORT).show()
                             }
                         }
 
