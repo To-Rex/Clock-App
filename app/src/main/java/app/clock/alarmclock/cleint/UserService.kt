@@ -10,5 +10,6 @@ interface UserService {
     fun login(@Body loginModels: LoginModels?): Call<Any?>?
     @POST("register")
     fun register(@Body loginModels: LoginModels?): Call<Any?>?
-
+    @POST("resendverefy")
+    fun resendverefy(@Body loginModels: LoginModels?): Call<Any?>?
 }

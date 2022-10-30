@@ -34,6 +34,7 @@ class VerifyPage : AppCompatActivity() {
                 ediVerCode?.requestFocus()
                 return@setOnClickListener
             }
+
         }
 
     }
