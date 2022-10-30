@@ -26,16 +26,20 @@ class VerifyPage : AppCompatActivity() {
         txtVerTime = findViewById(R.id.txtVerTime)
         btnVerOk = findViewById(R.id.btnVerOk)
 
+        Timers()
+    }
+    private fun Timers(){
         object : CountDownTimer(5000, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
-                txtVerTime?.text = "00: " + millisUntilFinished / 1000
+                txtVerTime?.text = "00:" + millisUntilFinished / 1000
             }
 
             @SuppressLint("SetTextI18n", "ResourceAsColor")
             override fun onFinish() {
                 txtVerTime?.text = "Qayta urinib ko'ring"
-                txtVerTime?.setTextColor(R.color.purple_700)
+                txtVerTime?.setTextColor(R.color.teal_700)
+                txtVerTime?.setOnClickListener { Timers() }
             }
         }.start()
     }

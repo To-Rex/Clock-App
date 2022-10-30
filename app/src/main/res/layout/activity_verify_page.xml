@@ -13,6 +13,7 @@
         android:layout_marginTop="200dp"
         android:background="@drawable/edit_text"
         android:ems="10"
+        android:textColor="@color/teal_700"
         android:hint="@string/tasdiqlash_elektron_pochta_kodi"
         android:inputType="phone"
         android:paddingStart="14dp"
