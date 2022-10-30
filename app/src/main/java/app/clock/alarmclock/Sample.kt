@@ -27,19 +27,19 @@ class Sample : AppCompatActivity() {
             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@Sample, "Success", Toast.LENGTH_SHORT).show()
-//                    val gson = Gson()
-//                    val json = gson.toJson(response.body())
-//                    val jsonObject = JSONObject(json)
-//                    val data = jsonObject.getJSONObject("data")
-//                    val times = data.getJSONArray("times")
-//                    for (i in 0 until times.length()) {
-//                        val time = times.getJSONObject(i)
-//                        val id = time.getString("id")
-//                        val time = time.getString("time")
-//                        val status = time.getString("status")
-//                        val getTimes = GetTimes(id,time,status)
-//                        getTimesList.add(getTimes)
-//                    }
+                    val gson = Gson()
+                    //{"coments":[" coment"],"companets":[],"switchs":["true"],"times":["02:00"]}
+                    val json = gson.toJson(response.body())
+                    val jsonObject = JSONObject(json)
+                    val times = jsonObject.getJSONArray("times")
+                    val switchs = jsonObject.getJSONArray("switchs")
+                    val coments = jsonObject.getJSONArray("coments")
+                    val companets = jsonObject.getJSONArray("companets")
+                    for (i in 0 until times.length()) {
+                        getTimes.times = times.getString(i)
+                        getTimes.switchs = switchs.getString(i)
+                        getTimes.coments = coments.getString(i)
+                    }
                 }else{
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                 }
