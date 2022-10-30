@@ -1,8 +1,10 @@
 package app.clock.alarmclock
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ListView
 import android.widget.Toast
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
@@ -14,11 +16,16 @@ class Sample : AppCompatActivity() {
 
     private var sharedPreferences: SharedPreferences? = null
     var token = ""
+    var listSample: ListView? = null
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_sample)
+
+        listSample = findViewById(R.id.listSample)
+
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
         val getTimes = GetTimes("","","")
