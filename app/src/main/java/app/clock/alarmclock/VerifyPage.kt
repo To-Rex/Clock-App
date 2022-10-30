@@ -91,18 +91,10 @@ class VerifyPage : AppCompatActivity() {
                             isLoading = false
                             progressVer?.visibility = ProgressBar.GONE
                             btnVerOk?.visibility = Button.VISIBLE
-                            Toast.makeText(
-                                this@VerifyPage,
-                                "Siz ro'yxatdan o'tdingiz",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            val json = gson.fromJson(
-                                response.body()?.toString(),
-                                JsonObject::class.java
-                            )
+                            Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
+                            val json = gson.fromJson(response.body()?.toString(), JsonObject::class.java)
                             token = json.get("token").asString
                             sharedPreferences?.edit()?.putString("token", token)?.apply()
-                            Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
                             startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
                             finish()
                         }
@@ -113,11 +105,7 @@ class VerifyPage : AppCompatActivity() {
                     isLoading = false
                     progressVer?.visibility = ProgressBar.GONE
                     btnVerOk?.visibility = Button.VISIBLE
-                    Toast.makeText(
-                        this@VerifyPage,
-                        "Internet bilan bog'lanishda xatolik",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@VerifyPage, "Internet bilan bog'lanishda xatolik", Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -149,7 +137,10 @@ class VerifyPage : AppCompatActivity() {
                                     JsonObject::class.java
                                 )
                                 val message = json.get("error").asString
-                                Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
+                                if (message == "email is incorrect") {
+                                    Toast.makeText(this@VerifyPage, "Email noto'g'ri", Toast.LENGTH_SHORT).show()
+                                    finish()
+                                }
                             } else {
                                 if (response.code() == 200) {
                                     val json = Gson().fromJson(
@@ -157,11 +148,7 @@ class VerifyPage : AppCompatActivity() {
                                         JsonObject::class.java
                                     )
                                     veRey = json.get("verefyCode").asString
-                                    Toast.makeText(
-                                        this@VerifyPage,
-                                        "Kod yuborildi",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Toast.makeText(this@VerifyPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
