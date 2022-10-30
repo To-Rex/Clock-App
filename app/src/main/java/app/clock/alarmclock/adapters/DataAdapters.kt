@@ -10,7 +10,9 @@ import android.widget.TextView
 import app.clock.alarmclock.R
 import app.clock.alarmclock.models.GetTimes
 
-class DataAdapters(private val context: Activity, private val list:ArrayList<GetTimes>) : BaseAdapter() {
+class DataAdapters(
+    private val context: Activity, private val list: ArrayList<GetTimes>) :
+    BaseAdapter() {
     override fun getCount(): Int {
         return list.size
     }
@@ -29,9 +31,11 @@ class DataAdapters(private val context: Activity, private val list:ArrayList<Get
 
         val times = view.findViewById<View>(R.id.txtTimes) as TextView
         val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
+        val switchItem = view.findViewById<View>(R.id.switchItem) as TextView
         val getTimes = list[position]
         times.text = getTimes.times
         txtComents.text = getTimes.coments
+        switchItem.isClickable = getTimes.switchs == "true"
 
         return view
     }

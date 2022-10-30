@@ -29,11 +29,5 @@ public class GetTimes {
         this.switchs = switchs;
     }
 
-    public GetTimes(String times, String coments, String switchs) {
-        this.times = times;
-        this.coments = coments;
-        this.switchs = switchs;
-    }
-
 
 }

@@ -28,7 +28,7 @@
         android:maxLines="1"
         android:text="@string/connect"
         android:textColor="@color/teal_700"
-        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintEnd_toStartOf="@+id/switchItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTimes" />
 
@@ -38,12 +38,12 @@
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
         android:background="@color/teal_700"
-        app:layout_constraintEnd_toEndOf="@+id/switch1"
+        app:layout_constraintEnd_toEndOf="@+id/switchItem"
         app:layout_constraintStart_toStartOf="@+id/txtTimes"
         app:layout_constraintTop_toBottomOf="@+id/txtComent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:track="@drawable/switch_track"
