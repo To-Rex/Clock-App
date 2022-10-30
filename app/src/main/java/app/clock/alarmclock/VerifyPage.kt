@@ -74,12 +74,40 @@ class VerifyPage : AppCompatActivity() {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
                             if (token != null) {
+                                Toast.makeText(this@VerifyPage, "Yaxshi", Toast.LENGTH_SHORT).show()
                                 sharedPreferences?.edit()?.putString("token", token)?.apply()
                                 sharedPreferences?.edit()?.putString("token", token)?.apply()
                                 startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
                                 finish()
                             }else{
+                                val checkVerify: Call<Any?>? = ApiCleint().userService.cheskverefy(loginModels)
+                                checkVerify?.enqueue(object : retrofit2.Callback<Any?> {
+                                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                                        if (response.code() == 200) {
+                                            val json = gson.fromJson(
+                                                response.body().toString(),
+                                                JsonObject::class.java
+                                            )
+                                            val token = json.get("token").asString
+                                            Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz $token", Toast.LENGTH_SHORT).show()
+                                            sharedPreferences?.edit()?.putString("token", token)
+                                                ?.apply()
+                                            startActivity(
+                                                intent.setClass(
+                                                    this@VerifyPage,
+                                                    Sample::class.java
+                                                )
+                                            )
+                                            finish()
+                                        }
+                                    }
 
+                                    override fun onFailure(call: Call<Any?>, t: Throwable) {
+                                        Toast.makeText(
+                                            this@VerifyPage, "Internet bilan bog'lanishda xatolik", Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                })
                             }
                         }
                     }
