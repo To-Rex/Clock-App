@@ -104,7 +104,6 @@ class RegisterPage : AppCompatActivity() {
                         Toast.makeText(this@RegisterPage, verefy, Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         ediRegEmail?.error = "Email is already taken"
