@@ -49,20 +49,7 @@ class Sample : AppCompatActivity() {
         imgSamleSet?.setOnClickListener {
             startActivity(Intent(this, SettingsPage::class.java))
         }
-
-        listSample?.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listSample?.lastVisiblePosition == listSample?.count
-                        ?.minus(1)) {
-                    if (!isLoading) {
-                        isLoading = true
-                        getAllTimes()
-                    }
-                }
-            }
-
-            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {}
-        })
+        
     }
     private fun getAllTimes() {
         val getTimes = GetTimes("","","")
