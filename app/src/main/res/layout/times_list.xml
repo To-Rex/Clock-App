@@ -42,7 +42,7 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:track="@drawable/rectangle_11"
+        android:track="@drawable/switch_track"
         android:thumb="@drawable/switch_thumb"
         android:transformPivotX="30dp"
         android:thumbTextPadding="5dp"
