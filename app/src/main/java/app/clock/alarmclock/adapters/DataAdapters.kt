@@ -45,30 +45,3 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         return view
     }
 }
-//    private var context: Context? = context
-//    private var timeList: ArrayList<GetTimes>? = timeList
-//
-//    override fun getCount(): Int {
-//        return timeList!!.size
-//    }
-//
-//    override fun getItem(position: Int): Any {
-//        return timeList!![position]
-//    }
-//
-//    override fun getItemId(position: Int): Long {
-//        return position.toLong()
-//    }
-//
-//    @SuppressLint("ViewHolder", "InflateParams")
-//    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-//        val view: View = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
-//        val times = view.findViewById<View>(R.id.txtTimes) as TextView
-//        val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
-//        val switchItem = view.findViewById<View>(R.id.switchItem) as TextView
-//
-//        times.text = timeList!![position].times
-//        txtComents.text = timeList!![position].coments
-//
-//        return view
-//    }
