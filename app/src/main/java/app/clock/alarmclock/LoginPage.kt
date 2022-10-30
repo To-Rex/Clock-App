@@ -23,6 +23,7 @@ class LoginPage : AppCompatActivity() {
     private var txtLogReg: TextView? = null
     private var veRey: String? = null
     var json: JsonObject? = null
+    val message: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,32 +58,36 @@ class LoginPage : AppCompatActivity() {
                     val user: Call<Any?>? = ApiCleint().userService.login(loginModels)
                     user?.enqueue(object : retrofit2.Callback<Any?> {
                         override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
-                            if (response.code() == 400) {
-                                var json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
-                                Toast.makeText(this@LoginPage, json.get("message").asString, Toast.LENGTH_SHORT).show()
-                                val message = json.get("error").asString
+                            if (response.code() == 401) {
+                                json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                val message = json?.get("error")?.asString
                                 if (message == "user is blocked") {
                                     Toast.makeText(this@LoginPage, "Your account is blocked", Toast.LENGTH_SHORT).show()
                                     AlertDialog.Builder(this@LoginPage)
-                                            .setTitle("Your account is blocked")
-                                            .setMessage("Please contact us to unblock your account")
-                                            .setPositiveButton("OK") { dialog, _ ->
-                                                dialog.dismiss()
-                                            }
-                                            .show()
+                                        .setTitle("Your account is blocked")
+                                        .setMessage("Please contact us to unblock your account")
+                                        .setPositiveButton("OK") { dialog, _ ->
+                                            dialog.dismiss()
+                                        }
+                                        .show()
                                 }
+                            }
+                            if (response.code() == 400) {
+                                json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                Toast.makeText(this@LoginPage, json?.get("message")?.asString, Toast.LENGTH_SHORT).show()
+                                var message = json?.get("error")?.asString
                                 if (message == "email is not verified") {
                                     val resendverefy: Call<Any?>? = ApiCleint().userService.resendverefy(email?.let { LoginModels(it, "") })
                                     resendverefy?.enqueue(object : retrofit2.Callback<Any?> {
                                         override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                                             if (response.code() == 400) {
                                                 json = Gson().fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
-                                                val message = json.get("error").asString
+                                                message = json?.get("error")?.asString
                                                 Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
                                             } else {
                                                 if (response.code() == 200) {
                                                     json = Gson().fromJson(response.body().toString(), JsonObject::class.java)
-                                                    veRey = json.get("verefyCode").asString
+                                                    veRey = json?.get("verefyCode")?.asString
                                                     Toast.makeText(this@LoginPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
                                                     val intent = Intent(this@LoginPage, VerifyPage::class.java)
                                                     intent.putExtra("email", email)
