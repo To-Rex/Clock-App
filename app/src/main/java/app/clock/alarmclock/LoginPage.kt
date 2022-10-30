@@ -150,6 +150,8 @@ class LoginPage : AppCompatActivity() {
                                 }
                             } else if (response.code() == 200) {
                                 isLoading = false
+                                progressLog?.visibility = ProgressBar.GONE
+                                btnLogLogin?.visibility = Button.VISIBLE
                                 val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
                                 val editor = sharedPreferences?.edit()
