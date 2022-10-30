@@ -73,14 +73,11 @@ class Sample : AppCompatActivity() {
                     val switchs = jsonObject.getJSONArray("switchs")
                     val coments = jsonObject.getJSONArray("coments")
                     for (i in 0 until times.length()) {
-                        Toast.makeText(this@Sample, times[i].toString(), Toast.LENGTH_SHORT).show()
-                        val time = times.getString(i)
-                        val switch = switchs.getString(i)
-                        val coment = coments.getString(i)
-                        getTimes.times = time
-                        getTimes.switchs = switch
-                        getTimes.coments = coment
+                        getTimes.times = times[i].toString()
+                        getTimes.switchs = switchs[i].toString()
+                        getTimes.coments = coments[i].toString()
                         timeList?.add(getTimes)
+                        dataAdapters?.notifyDataSetChanged()
                     }
                     dataAdapters?.notifyDataSetChanged()
                 }else{

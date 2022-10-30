@@ -20,25 +20,22 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     }
 
     override fun getItem(position: Int): Any {
-        return timeList!!.get(position)
+        return timeList!![position]
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
-        //val view = context.layoutInflater.inflate(R.layout.times_list, null)
-
         val times = view.findViewById<View>(R.id.txtTimes) as TextView
         val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
         val switchItem = view.findViewById<View>(R.id.switchItem) as TextView
-        val getTimes = timeList!![position]
-        times.text = getTimes.times
-        txtComents.text = getTimes.coments
-        switchItem.isClickable = getTimes.switchs == "true"
+
+        times.text = timeList!![position].times
+        txtComents.text = timeList!![position].coments
 
         return view
     }
