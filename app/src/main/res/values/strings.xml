@@ -8,4 +8,7 @@
     <string name="hisobingiz_yo_qmi">Hisobingiz Yo`qmi?</string>
     <string name="parolni_qaytadan_kiriting">Parolni qaytadan kiriting</string>
     <string name="hisobingiz_bormi">Hisobingiz bormi?</string>
+    <string name="connect">Connect</string>
+    <string name="tasdiqlash">Tasdiqlash</string>
+    <string name="tasdiqlash_elektron_pochta_kodi">Tasdiqlash elektron pochta kodi</string>
 </resources>
