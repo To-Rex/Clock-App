@@ -35,6 +35,10 @@ class RegisterPage : AppCompatActivity() {
         txtRegEnter = findViewById(R.id.txtRegEnter)
         val gson = Gson()
 
+        txtRegEnter?.setOnClickListener {
+            finish()
+        }
+
         btnRegOk?.setOnClickListener {
             val email = ediRegEmail?.text.toString()
             val password = ediRegPas?.text.toString()
@@ -69,7 +73,10 @@ class RegisterPage : AppCompatActivity() {
             register?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.code() == 400) {
-                        val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                        val json = gson.fromJson(
+                            response.errorBody()?.charStream(),
+                            JsonObject::class.java
+                        )
                         val message = json.get("error").asString
                         Toast.makeText(this@RegisterPage, message, Toast.LENGTH_SHORT).show()
                     } else if (response.code() == 200) {

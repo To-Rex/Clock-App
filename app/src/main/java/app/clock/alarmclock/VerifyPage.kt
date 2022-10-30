@@ -40,15 +40,8 @@ class VerifyPage : AppCompatActivity() {
         email = intent.getStringExtra("email")
         token = intent.getStringExtra("token")
         veRey = intent.getStringExtra("veRey")
-        Toast.makeText(this, veRey, Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, email, Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
         val gson = Gson()
         codeTimersText()
-
-        txtVerTime?.setOnClickListener {
-            finish()
-        }
 
         btnVerOk?.setOnClickListener {
             val code = ediVerCode?.text.toString()
