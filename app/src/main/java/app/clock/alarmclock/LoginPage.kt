@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
 import com.google.gson.Gson
@@ -20,6 +21,8 @@ class LoginPage : AppCompatActivity() {
     private var txtLogPass: TextView? = null
     private var btnLogLogin: Button? = null
     private var txtLogReg: TextView? = null
+    private var veRey: String? = null
+    var json: JsonObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +58,45 @@ class LoginPage : AppCompatActivity() {
                     user?.enqueue(object : retrofit2.Callback<Any?> {
                         override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                             if (response.code() == 400) {
-                                val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                var json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                Toast.makeText(this@LoginPage, json.get("message").asString, Toast.LENGTH_SHORT).show()
                                 val message = json.get("error").asString
-                                Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
+                                if (message == "user is blocked") {
+                                    Toast.makeText(this@LoginPage, "Your account is blocked", Toast.LENGTH_SHORT).show()
+                                    AlertDialog.Builder(this@LoginPage)
+                                            .setTitle("Your account is blocked")
+                                            .setMessage("Please contact us to unblock your account")
+                                            .setPositiveButton("OK") { dialog, _ ->
+                                                dialog.dismiss()
+                                            }
+                                            .show()
+                                }
+                                if (message == "email is not verified") {
+                                    val resendverefy: Call<Any?>? = ApiCleint().userService.resendverefy(email?.let { LoginModels(it, "") })
+                                    resendverefy?.enqueue(object : retrofit2.Callback<Any?> {
+                                        override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                                            if (response.code() == 400) {
+                                                json = Gson().fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                                                val message = json.get("error").asString
+                                                Toast.makeText(this@LoginPage, message, Toast.LENGTH_SHORT).show()
+                                            } else {
+                                                if (response.code() == 200) {
+                                                    json = Gson().fromJson(response.body().toString(), JsonObject::class.java)
+                                                    veRey = json.get("verefyCode").asString
+                                                    Toast.makeText(this@LoginPage, "Kod yuborildi", Toast.LENGTH_SHORT).show()
+                                                    val intent = Intent(this@LoginPage, VerifyPage::class.java)
+                                                    intent.putExtra("email", email)
+                                                    intent.putExtra("veRey", veRey)
+                                                    startActivity(intent)
+                                                }
+                                            }
+                                        }
+                                        override fun onFailure(call: Call<Any?>, t: Throwable) {
+                                            t.printStackTrace()
+                                        }
+                                    })
+
+                                }
                             } else if (response.code() == 200) {
                                 val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
