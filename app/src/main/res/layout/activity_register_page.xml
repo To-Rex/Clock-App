@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill" />
+        tools:ignore="Autofill,TextFields" />
 
     <EditText
         android:id="@+id/ediRegPas"
