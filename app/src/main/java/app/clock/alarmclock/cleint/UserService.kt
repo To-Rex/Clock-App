@@ -26,5 +26,6 @@ interface UserService {
 
     @GET("gettimes")
     fun gettimes(@Header("Authorization") token: String?): Call<Any?>?
-
+    @POST("addtime")
+    fun addtime(@Header("Authorization") token: String?, @Body getTimes: GetTimes?): Call<Any?>?
 }
