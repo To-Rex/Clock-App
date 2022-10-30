@@ -70,18 +70,16 @@ class VerifyPage : AppCompatActivity() {
                             Toast.makeText(this@VerifyPage, "Email tasdiqlangan", Toast.LENGTH_SHORT).show()
                             finish()
                         }
+
                     } else {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
-                            if (token != null) {
-                                Toast.makeText(this@VerifyPage, "Yaxshi", Toast.LENGTH_SHORT).show()
-                                if (token?.length!! < 1) {
-                                    Toast.makeText(this@VerifyPage, "Token noto'g'ri", Toast.LENGTH_SHORT).show()
-                                    return
+                            if (token?.length!! < 1) {
+                                    Toast.makeText(this@VerifyPage, "Yaxshi", Toast.LENGTH_SHORT).show()
+                                    sharedPreferences?.edit()?.putString("token", token)?.apply()
+                                    startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
+                                    finish()
                                 }
-                                sharedPreferences?.edit()?.putString("token", token)?.apply()
-                                startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
-                                finish()
                             }else{
                                 val checkVerify: Call<Any?>? = ApiCleint().userService.cheskverefy(loginModels)
                                 checkVerify?.enqueue(object : retrofit2.Callback<Any?> {
@@ -113,11 +111,12 @@ class VerifyPage : AppCompatActivity() {
                                     }
                                 })
                             }
+
                         }
                     }
-                }
+
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
-                    t.printStackTrace()
+                    TODO("Not yet implemented")
                 }
             })
         }
