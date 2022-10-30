@@ -49,7 +49,7 @@ class Sample : AppCompatActivity() {
         imgSamleSet?.setOnClickListener {
             startActivity(Intent(this, SettingsPage::class.java))
         }
-        
+
     }
     private fun getAllTimes() {
         val getTimes = GetTimes("","","")
