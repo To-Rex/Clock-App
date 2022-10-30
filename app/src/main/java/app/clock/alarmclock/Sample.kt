@@ -73,9 +73,9 @@ class Sample : AppCompatActivity() {
                     val coments = jsonObject.getJSONArray("coments")
                     for (i in 0 until times.length()) {
                         val time = times.getString(i)
-                        val switchs = switchs.getString(i)
-                        val coments = coments.getString(i)
-                        timeList?.add(GetTimes(time, coments,switchs))
+                        val switchBox = switchs.getString(i)
+                        val coMntS = coments.getString(i)
+                        timeList?.add(GetTimes(time, coMntS,switchBox))
                         dataAdapters?.notifyDataSetChanged()
                     }
                     dataAdapters?.notifyDataSetChanged()
