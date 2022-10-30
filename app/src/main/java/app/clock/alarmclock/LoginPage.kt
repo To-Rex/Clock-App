@@ -98,6 +98,9 @@ class LoginPage : AppCompatActivity() {
                                 btnLogLogin?.visibility = Button.VISIBLE
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 var message = json?.get("error")?.asString
+                                if(message == "password is incorrect"){
+                                    ediLogPas?.error = "Password is incorrect"
+                                }
                                 if (message == "email is not verified") {
                                     AlertDialog.Builder(this@LoginPage)
                                         .setTitle("DIQQAT!")
