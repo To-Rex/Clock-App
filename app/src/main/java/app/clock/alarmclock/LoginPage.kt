@@ -57,7 +57,6 @@ class LoginPage : AppCompatActivity() {
                             } else if (response.code() == 200) {
                                 val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
-
                                 Toast.makeText(this@LoginPage, token, Toast.LENGTH_SHORT).show()
                             }
                         }
