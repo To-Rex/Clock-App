@@ -75,8 +75,8 @@ class VerifyPage : AppCompatActivity() {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
                             if (token?.length!! < 1) {
-                                    Toast.makeText(this@VerifyPage, "Yaxshi", Toast.LENGTH_SHORT).show()
                                     sharedPreferences?.edit()?.putString("token", token)?.apply()
+                                Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
                                     startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
                                     finish()
                                 }
