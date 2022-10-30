@@ -1,13 +1,12 @@
 package app.clock.alarmclock
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import app.clock.alarmclock.adapters.DataAdapters
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
@@ -22,6 +21,7 @@ class Sample : AppCompatActivity() {
     var listSample: ListView? = null
     private var dataAdapters: DataAdapters? = null
     private var timeList: ArrayList<GetTimes>? = null
+    private var imgSamleSet: ImageView? = null
     private var progressSampe: ProgressBar? = null
     private var isLoading: Boolean = false
 
@@ -33,6 +33,7 @@ class Sample : AppCompatActivity() {
 
         listSample = findViewById(R.id.listSample)
         progressSampe = findViewById(R.id.progressSampe)
+        imgSamleSet = findViewById(R.id.imgSamleSet)
 
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
@@ -45,6 +46,23 @@ class Sample : AppCompatActivity() {
 
         getAllTimes()
 
+        imgSamleSet?.setOnClickListener {
+            startActivity(Intent(this, SettingsPage::class.java))
+        }
+
+        listSample?.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && listSample?.lastVisiblePosition == listSample?.count
+                        ?.minus(1)) {
+                    if (!isLoading) {
+                        isLoading = true
+                        getAllTimes()
+                    }
+                }
+            }
+
+            override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {}
+        })
     }
     private fun getAllTimes() {
         val getTimes = GetTimes("","","")
