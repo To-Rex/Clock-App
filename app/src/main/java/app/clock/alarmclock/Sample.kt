@@ -101,8 +101,8 @@ class Sample : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.add_item, null)
 
-        var ediSamComment = view.findViewById<EditText>(R.id.ediSamComment)
-        var btnSamAdd = view.findViewById<Button>(R.id.btnSamAdd)
+        val ediSamComment = view.findViewById<EditText>(R.id.ediSamComment)
+        val btnSamAdd = view.findViewById<Button>(R.id.btnSamAdd)
         val digitalClock = view.findViewById<TimePicker>(R.id.digitalClock)
 
         digitalClock.setIs24HourView(true)
