@@ -10,17 +10,17 @@
         android:id="@+id/editTextPhone"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/edit_text"
         android:layout_marginTop="200dp"
+        android:background="@drawable/edit_text"
         android:ems="10"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
         android:hint="@string/tasdiqlash_elektron_pochta_kodi"
         android:inputType="phone"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill,LabelFor" />
+        tools:ignore="Autofill,LabelFor,TextContrastCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
@@ -51,11 +51,12 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/white"
         android:background="@drawable/button_fon"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:text="@string/tasdiqlash"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
