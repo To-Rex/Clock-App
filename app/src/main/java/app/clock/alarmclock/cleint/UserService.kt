@@ -1,5 +1,6 @@
 package app.clock.alarmclock.cleint
 
+import app.clock.alarmclock.models.GetTimes
 import retrofit2.http.POST
 import app.clock.alarmclock.models.LoginModels
 import retrofit2.Call
