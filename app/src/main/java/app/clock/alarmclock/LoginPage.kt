@@ -1,6 +1,7 @@
 package app.clock.alarmclock
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -23,7 +24,8 @@ class LoginPage : AppCompatActivity() {
     private var txtLogReg: TextView? = null
     private var veRey: String? = null
     var json: JsonObject? = null
-    val message: String? = null
+    private var sharedPreferences: SharedPreferences? = null
+    var message: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ class LoginPage : AppCompatActivity() {
         txtLogPass = findViewById(R.id.txtLogPass)
         btnLogLogin = findViewById(R.id.btnLogLogin)
         txtLogReg = findViewById(R.id.txtLogReg)
+        sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         val gson = Gson()
 
         btnLogLogin?.setOnLongClickListener{
@@ -60,7 +63,7 @@ class LoginPage : AppCompatActivity() {
                         override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                             if (response.code() == 401) {
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
-                                val message = json?.get("error")?.asString
+                                message = json?.get("error")?.asString
                                 if (message == "user is blocked") {
                                     Toast.makeText(this@LoginPage, "Your account is blocked", Toast.LENGTH_SHORT).show()
                                     AlertDialog.Builder(this@LoginPage)
