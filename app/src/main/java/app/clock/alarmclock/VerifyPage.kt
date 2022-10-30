@@ -70,7 +70,6 @@ class VerifyPage : AppCompatActivity() {
                             Toast.makeText(this@VerifyPage, "Email tasdiqlangan", Toast.LENGTH_SHORT).show()
                             finish()
                         }
-                        Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
                     } else {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
