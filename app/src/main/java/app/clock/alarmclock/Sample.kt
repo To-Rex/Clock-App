@@ -96,23 +96,25 @@ class Sample : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("InflateParams", "MissingInflatedId")
+    @SuppressLint("InflateParams", "MissingInflatedId", "NewApi")
     private fun addTime(){
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.add_item, null)
 
         var ediSamComment = view.findViewById<EditText>(R.id.ediSamComment)
         var btnSamAdd = view.findViewById<Button>(R.id.btnSamAdd)
-        var digitalClock = view.findViewById<TimePicker>(R.id.digitalClock)
+        val digitalClock = view.findViewById<TimePicker>(R.id.digitalClock)
 
         digitalClock.setIs24HourView(true)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            digitalClock.hour = 0
-            digitalClock.minute = 0
-        }
         val addDialog = AlertDialog.Builder(this)
         addDialog.setView(view)
-        //setContentView(R.layout.add_item)
+
+        var comment = ediSamComment.text.toString()
+        val time = digitalClock.hour.toString() + ":" + digitalClock.minute.toString()
+        btnSamAdd.setOnClickListener {
+            Toast.makeText(this, time, Toast.LENGTH_SHORT).show()
+        }
+
         val dialog = addDialog.create()
         dialog.show()
 
