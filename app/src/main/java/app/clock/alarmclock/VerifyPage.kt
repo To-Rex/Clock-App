@@ -25,8 +25,17 @@ class VerifyPage : AppCompatActivity() {
         ediVerCode = findViewById(R.id.ediVerCode)
         txtVerTime = findViewById(R.id.txtVerTime)
         btnVerOk = findViewById(R.id.btnVerOk)
-
         Timers()
+
+        btnVerOk?.setOnClickListener {
+            val code = ediVerCode?.text.toString()
+            if (code.isEmpty()) {
+                ediVerCode?.error = "Kodni kiriting"
+                ediVerCode?.requestFocus()
+                return@setOnClickListener
+            }
+        }
+
     }
     private fun Timers(){
         object : CountDownTimer(5000, 1000) {
