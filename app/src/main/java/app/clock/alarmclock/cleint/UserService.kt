@@ -14,4 +14,6 @@ interface UserService {
     fun resendverefy(@Body loginModels: LoginModels?): Call<Any?>?
     @POST("verefyuser")
     fun verefyuser(@Body loginModels: LoginModels?): Call<Any?>?
+    @POST("cheskverefy")
+    fun cheskverefy(@Body loginModels: LoginModels?): Call<Any?>?
 }

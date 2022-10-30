@@ -73,9 +73,14 @@ class VerifyPage : AppCompatActivity() {
                     } else {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
-                            sharedPreferences?.edit()?.putString("token", token)?.apply()
-                            startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
-                            finish()
+                            if (token != null) {
+                                sharedPreferences?.edit()?.putString("token", token)?.apply()
+                                sharedPreferences?.edit()?.putString("token", token)?.apply()
+                                startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
+                                finish()
+                            }else{
+
+                            }
                         }
                     }
                 }
