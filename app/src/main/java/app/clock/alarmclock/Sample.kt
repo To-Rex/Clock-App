@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.get
 import app.clock.alarmclock.adapters.DataAdapters
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
@@ -110,8 +111,11 @@ class Sample : AppCompatActivity() {
         addDialog.setView(view)
 
         var comment = ediSamComment.text.toString()
-        val time = digitalClock.hour.toString() + ":" + digitalClock.minute.toString()
         btnSamAdd.setOnClickListener {
+            val hour = digitalClock.hour
+            val minute = digitalClock.minute
+            val time = "$hour:$minute"
+
             if (comment.isEmpty()){
                 comment = "No Comment"
             }
@@ -122,7 +126,9 @@ class Sample : AppCompatActivity() {
                         timeList?.clear()
                         dataAdapters?.notifyDataSetChanged()
                         getAllTimes()
+                        addDialog.create().dismiss()
                     }else{
+                        addDialog.create().dismiss()
                         Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
