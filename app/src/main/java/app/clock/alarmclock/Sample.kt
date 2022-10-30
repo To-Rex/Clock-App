@@ -112,7 +112,23 @@ class Sample : AppCompatActivity() {
         var comment = ediSamComment.text.toString()
         val time = digitalClock.hour.toString() + ":" + digitalClock.minute.toString()
         btnSamAdd.setOnClickListener {
-            Toast.makeText(this, time, Toast.LENGTH_SHORT).show()
+            if (comment.isEmpty()){
+                comment = "No Comment"
+            }
+            val addTime: Call<Any?>? = ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment,"true"))
+            addTime?.enqueue(object : retrofit2.Callback<Any?> {
+                override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                    if (response.isSuccessful) {
+                        timeList?.clear()
+                        dataAdapters?.notifyDataSetChanged()
+                        getAllTimes()
+                    }else{
+                        Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<Any?>, t: Throwable) {
+                }
+            })
         }
 
         val dialog = addDialog.create()
