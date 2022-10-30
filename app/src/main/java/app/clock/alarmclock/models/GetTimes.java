@@ -5,6 +5,12 @@ public class GetTimes {
     private String coments;
     private String switchs;
 
+    public GetTimes(String times, String coments, String switchs) {
+        this.times = times;
+        this.coments = coments;
+        this.switchs = switchs;
+    }
+
     public String getTimes() {
         return times;
     }

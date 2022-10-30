@@ -59,7 +59,6 @@ class Sample : AppCompatActivity() {
         }
     }
     private fun getAllTimes() {
-        val getTimes = GetTimes()
         val gettime: Call<Any?>? = ApiCleint().userService.gettimes("Bearer $token")
         gettime?.enqueue(object : retrofit2.Callback<Any?> {
             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
@@ -73,10 +72,10 @@ class Sample : AppCompatActivity() {
                     val switchs = jsonObject.getJSONArray("switchs")
                     val coments = jsonObject.getJSONArray("coments")
                     for (i in 0 until times.length()) {
-                        getTimes.times = times[i].toString()
-                        getTimes.switchs = switchs[i].toString()
-                        getTimes.coments = coments[i].toString()
-                        timeList?.add(getTimes)
+                        val time = times.getString(i)
+                        val switchs = switchs.getString(i)
+                        val coments = coments.getString(i)
+                        timeList?.add(GetTimes(time, coments,switchs))
                         dataAdapters?.notifyDataSetChanged()
                     }
                     dataAdapters?.notifyDataSetChanged()
