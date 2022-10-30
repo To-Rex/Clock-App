@@ -109,6 +109,7 @@ class RegisterPage : AppCompatActivity() {
                         intent.putExtra("veRey", verefy)
                         intent.putExtra("email", email)
                         startActivity(intent)
+                        finish()
                     }
                 }
 

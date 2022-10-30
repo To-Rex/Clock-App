@@ -124,7 +124,7 @@ class VerifyPage : AppCompatActivity() {
     }
 
     private fun codeTimersText() {
-        object : CountDownTimer(5000, 1000) {
+        object : CountDownTimer(59000, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 txtVerTime?.text = "00:" + millisUntilFinished / 1000
