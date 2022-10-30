@@ -7,7 +7,13 @@ import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import app.clock.alarmclock.cleint.ApiCleint
+import app.clock.alarmclock.models.LoginModels
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import retrofit2.Call
 
 
 class VerifyPage : AppCompatActivity() {
@@ -32,7 +38,7 @@ class VerifyPage : AppCompatActivity() {
         email = intent.getStringExtra("email")
         token = intent.getStringExtra("token")
         verefy = intent.getStringExtra("verefy")
-
+        val gson = Gson()
         Timers()
 
         btnVerOk?.setOnClickListener {
@@ -47,11 +53,28 @@ class VerifyPage : AppCompatActivity() {
                 ediVerCode?.requestFocus()
                 return@setOnClickListener
             }
-            
+            val loginModels = email?.let { it1 -> LoginModels(it1, "") }
+            val verifyUser: Call<Any?>? = ApiCleint().userService.verefyuser(loginModels)
+            verifyUser?.enqueue(object : retrofit2.Callback<Any?> {
+                override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                    if (response.code() == 400) {
+                        val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
+                        val message = json.get("error").asString
+                        Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
+                    } else if (response.code() == 200) {
+                        Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Any?>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
         }
 
     }
-    private fun Timers(){
+
+    private fun Timers() {
         object : CountDownTimer(5000, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
