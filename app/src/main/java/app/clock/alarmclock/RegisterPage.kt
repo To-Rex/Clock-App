@@ -75,7 +75,7 @@ class RegisterPage : AppCompatActivity() {
                     } else if (response.code() == 200) {
                         val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                         val token = json.get("token").asString
-                        val intent = Intent(this@RegisterPage, MainActivity::class.java)
+                        Toast.makeText(this@RegisterPage, "Register Success", Toast.LENGTH_SHORT).show()
                     }
                 }
 
