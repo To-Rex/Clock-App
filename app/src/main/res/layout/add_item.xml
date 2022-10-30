@@ -28,7 +28,7 @@
             android:textSize="50sp" />
 
         <EditText
-            android:id="@+id/comment"
+            android:id="@+id/ediSamComment"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
@@ -43,7 +43,7 @@
             tools:ignore="Autofill,RtlSymmetry" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnSamAdd"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"

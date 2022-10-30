@@ -3,11 +3,13 @@ package app.clock.alarmclock
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.adapters.DataAdapters
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
@@ -94,10 +96,25 @@ class Sample : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "MissingInflatedId")
     private fun addTime(){
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.add_item, null)
-    }
 
+        var ediSamComment = view.findViewById<EditText>(R.id.ediSamComment)
+        var btnSamAdd = view.findViewById<Button>(R.id.btnSamAdd)
+        var digitalClock = view.findViewById<TimePicker>(R.id.digitalClock)
+
+        digitalClock.setIs24HourView(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            digitalClock.hour = 0
+            digitalClock.minute = 0
+        }
+        val addDialog = AlertDialog.Builder(this)
+        addDialog.setView(view)
+        //setContentView(R.layout.add_item)
+        val dialog = addDialog.create()
+        dialog.show()
+
+    }
 }
