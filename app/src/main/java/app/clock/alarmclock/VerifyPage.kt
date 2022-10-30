@@ -1,7 +1,7 @@
 package app.clock.alarmclock
 
 import android.annotation.SuppressLint
-import android.graphics.Color.red
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -15,6 +15,9 @@ class VerifyPage : AppCompatActivity() {
     private var ediVerCode: EditText? = null
     private var txtVerTime: TextView? = null
     private var btnVerOk: Button? = null
+    private var email: String? = null
+    private var token: String? = null
+    private var verefy: String? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +28,11 @@ class VerifyPage : AppCompatActivity() {
         ediVerCode = findViewById(R.id.ediVerCode)
         txtVerTime = findViewById(R.id.txtVerTime)
         btnVerOk = findViewById(R.id.btnVerOk)
+
+        email = intent.getStringExtra("email")
+        token = intent.getStringExtra("token")
+        verefy = intent.getStringExtra("verefy")
+
         Timers()
 
         btnVerOk?.setOnClickListener {
@@ -34,7 +42,12 @@ class VerifyPage : AppCompatActivity() {
                 ediVerCode?.requestFocus()
                 return@setOnClickListener
             }
-
+            if (code != verefy) {
+                ediVerCode?.error = "Kod noto'g'ri"
+                ediVerCode?.requestFocus()
+                return@setOnClickListener
+            }
+            
         }
 
     }
@@ -53,4 +66,5 @@ class VerifyPage : AppCompatActivity() {
             }
         }.start()
     }
+
 }
