@@ -41,6 +41,7 @@ class RegisterPage : AppCompatActivity() {
         val gson = Gson()
 
         txtRegEnter?.setOnClickListener {
+            startActivity(Intent(this, LoginPage::class.java))
             finish()
         }
 

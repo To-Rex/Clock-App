@@ -180,6 +180,7 @@ class LoginPage : AppCompatActivity() {
 
         txtLogReg?.setOnClickListener {
             startActivity(Intent(this, RegisterPage::class.java))
+            finish()
         }
     }
 
