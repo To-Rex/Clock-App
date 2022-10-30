@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
 import com.google.gson.Gson
@@ -78,6 +79,17 @@ class RegisterPage : AppCompatActivity() {
                             JsonObject::class.java
                         )
                         val message = json.get("error").asString
+                        if (message == "email already exist") {
+                            ediRegEmail?.error = "Hisob mavjud! Iltimos, boshqa email kiriting"
+                            AlertDialog.Builder(this@RegisterPage)
+                                .setTitle("Hisob mavjud")
+                                .setMessage("Hisob mavjud! Iltimos, boshqa email kiriting")
+                                .setPositiveButton("Tushunarli") { dialog, which ->
+                                    dialog.dismiss()
+                                }
+                                .show()
+                            ediRegEmail?.requestFocus()
+                        }
                         Toast.makeText(this@RegisterPage, message, Toast.LENGTH_SHORT).show()
                     } else if (response.code() == 200) {
                         val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
