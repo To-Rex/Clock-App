@@ -65,13 +65,11 @@ class VerifyPage : AppCompatActivity() {
                         Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     t.printStackTrace()
                 }
             })
         }
-
     }
 
     private fun Timers() {
