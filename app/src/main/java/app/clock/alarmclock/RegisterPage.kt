@@ -8,6 +8,9 @@ import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import app.clock.alarmclock.cleint.ApiCleint
+import app.clock.alarmclock.models.LoginModels
+import retrofit2.Call
 
 class RegisterPage : AppCompatActivity() {
 
@@ -32,32 +35,48 @@ class RegisterPage : AppCompatActivity() {
             val email = ediRegEmail?.text.toString()
             val password = ediRegPas?.text.toString()
             val rePassword = ediRegRePas?.text.toString()
-            if (email.isEmpty()){
+            if (email.isEmpty()) {
                 ediRegEmail?.error = "Email is required"
                 ediRegEmail?.requestFocus()
                 return@setOnClickListener
             }
-            if (password.isEmpty()){
+            if (password.isEmpty()) {
                 ediRegPas?.error = "Password is required"
                 ediRegPas?.requestFocus()
                 return@setOnClickListener
             }
-            if (rePassword.isEmpty()){
+            if (rePassword.isEmpty()) {
                 ediRegRePas?.error = "Re-Password is required"
                 ediRegRePas?.requestFocus()
                 return@setOnClickListener
             }
-            if (password != rePassword){
+            if (password != rePassword) {
                 ediRegRePas?.error = "Password not match"
                 ediRegRePas?.requestFocus()
                 return@setOnClickListener
             }
-            if (password.length < 4){
+            if (password.length < 4) {
                 ediRegPas?.error = "Password must be at least 6 characters"
                 ediRegPas?.requestFocus()
                 return@setOnClickListener
             }
-            
+            val loginModels = LoginModels(email, password)
+            val register: Call<Any?>? = ApiCleint().userService.register(loginModels)
+            register?.enqueue(object : retrofit2.Callback<Any?> {
+                override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                    if (response.isSuccessful) {
+                        val intent = Intent(this@RegisterPage, LoginPage::class.java)
+                        startActivity(intent)
+                    }
+                }
+
+                override fun onFailure(call: Call<Any?>, t: Throwable) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        ediRegEmail?.error = "Email is already taken"
+                        ediRegEmail?.requestFocus()
+                    }, 1000)
+                }
+            })
         }
     }
 }
