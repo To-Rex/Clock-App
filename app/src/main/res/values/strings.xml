@@ -11,4 +11,7 @@
     <string name="connect">Connect</string>
     <string name="tasdiqlash">Tasdiqlash</string>
     <string name="tasdiqlash_elektron_pochta_kodi">Tasdiqlash elektron pochta kodi</string>
+    <string name="time">times</string>
+    <string name="comment">coments</string>
+    <string name="switchCheck">switchs</string>
 </resources>
