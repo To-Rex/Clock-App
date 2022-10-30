@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.LoginModels
@@ -92,7 +91,7 @@ class RegisterPage : AppCompatActivity() {
                             AlertDialog.Builder(this@RegisterPage)
                                 .setTitle("Hisob mavjud")
                                 .setMessage("Hisob mavjud! Iltimos, boshqa email kiriting")
-                                .setPositiveButton("Tushunarli") { dialog, which ->
+                                .setPositiveButton("Tushunarli") { dialog, _ ->
                                     dialog.dismiss()
                                 }
                                 .show()
