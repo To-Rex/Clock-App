@@ -76,6 +76,7 @@ class RegisterPage : AppCompatActivity() {
                         val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                         val token = json.get("token").asString
                         val verefy = json.get("verefy").asString
+                        val intent = Intent(this@RegisterPage, VerifyPage::class.java)
                         Toast.makeText(this@RegisterPage, token, Toast.LENGTH_SHORT).show()
                         Toast.makeText(this@RegisterPage, verefy, Toast.LENGTH_SHORT).show()
                     }
