@@ -82,6 +82,11 @@ class VerifyPage : AppCompatActivity() {
                     } else {
                         if (response.code() == 200) {
                             Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
+                            val json = gson.fromJson(
+                                response.body()?.toString(),
+                                JsonObject::class.java
+                            )
+                            token = json.get("token").asString
                             sharedPreferences?.edit()?.putString("token", token)?.apply()
                             Toast.makeText(this@VerifyPage, token, Toast.LENGTH_SHORT).show()
                             startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
