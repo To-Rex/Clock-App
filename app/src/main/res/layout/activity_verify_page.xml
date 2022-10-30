@@ -7,7 +7,7 @@
     tools:context=".VerifyPage">
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/ediVerCode"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="200dp"
@@ -37,17 +37,17 @@
         app:layout_constraintGuide_percent="0.92"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtVerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="4dp"
         android:text="@string/connect"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/ediVerCode" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnVerOk"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -57,6 +57,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/txtVerTime"
         tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
