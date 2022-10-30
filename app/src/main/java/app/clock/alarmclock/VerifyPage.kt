@@ -1,7 +1,7 @@
 package app.clock.alarmclock
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -23,7 +23,8 @@ class VerifyPage : AppCompatActivity() {
     private var btnVerOk: Button? = null
     private var email: String? = null
     private var token: String? = null
-    private var verefy: String? = null
+    private var veRey: String? = null
+    private var sharedPreferences: SharedPreferences? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +35,16 @@ class VerifyPage : AppCompatActivity() {
         ediVerCode = findViewById(R.id.ediVerCode)
         txtVerTime = findViewById(R.id.txtVerTime)
         btnVerOk = findViewById(R.id.btnVerOk)
+        sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
 
         email = intent.getStringExtra("email")
         token = intent.getStringExtra("token")
-        verefy = intent.getStringExtra("verefy")
+        veRey = intent.getStringExtra("veRey")
+        Toast.makeText(this, veRey, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, email, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, token, Toast.LENGTH_SHORT).show()
         val gson = Gson()
-        Timers()
+        codeTimersText()
 
         btnVerOk?.setOnClickListener {
             val code = ediVerCode?.text.toString()
@@ -48,7 +53,7 @@ class VerifyPage : AppCompatActivity() {
                 ediVerCode?.requestFocus()
                 return@setOnClickListener
             }
-            if (code != verefy) {
+            if (code != veRey?.split(".")?.get(0)) {
                 ediVerCode?.error = "Kod noto'g'ri"
                 ediVerCode?.requestFocus()
                 return@setOnClickListener
@@ -61,8 +66,14 @@ class VerifyPage : AppCompatActivity() {
                         val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                         val message = json.get("error").asString
                         Toast.makeText(this@VerifyPage, message, Toast.LENGTH_SHORT).show()
-                    } else if (response.code() == 200) {
-                        Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
+                    } else {
+                        if (response.code() == 200) {
+                            Toast.makeText(this@VerifyPage, "Siz ro'yxatdan o'tdingiz", Toast.LENGTH_SHORT).show()
+                            //save token shared preferences
+                            sharedPreferences?.edit()?.putString("token", token)?.apply()
+                            startActivity(intent.setClass(this@VerifyPage, Sample::class.java))
+                            finish()
+                        }
                     }
                 }
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
@@ -72,7 +83,7 @@ class VerifyPage : AppCompatActivity() {
         }
     }
 
-    private fun Timers() {
+    private fun codeTimersText() {
         object : CountDownTimer(5000, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
@@ -83,7 +94,7 @@ class VerifyPage : AppCompatActivity() {
             override fun onFinish() {
                 txtVerTime?.text = "Qayta urinib ko'ring"
                 txtVerTime?.setTextColor(R.color.teal_700)
-                txtVerTime?.setOnClickListener { Timers() }
+                txtVerTime?.setOnClickListener { codeTimersText() }
             }
         }.start()
     }

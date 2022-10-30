@@ -78,7 +78,7 @@ class RegisterPage : AppCompatActivity() {
                         val verefy = json.get("verefy").asString
                         val intent = Intent(this@RegisterPage, VerifyPage::class.java)
                         intent.putExtra("token", token)
-                        intent.putExtra("verefy", verefy)
+                        intent.putExtra("veRey", verefy)
                         intent.putExtra("email", email)
                         startActivity(intent)
                         Toast.makeText(this@RegisterPage, token, Toast.LENGTH_SHORT).show()
