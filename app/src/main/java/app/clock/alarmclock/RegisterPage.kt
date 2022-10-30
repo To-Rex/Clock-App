@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,6 +24,8 @@ class RegisterPage : AppCompatActivity() {
     private var ediRegRePas: EditText? = null
     private var btnRegOk: Button? = null
     private var txtRegEnter: TextView? = null
+    private var progressReg: ProgressBar? = null
+    private var isLoading: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
@@ -34,6 +37,7 @@ class RegisterPage : AppCompatActivity() {
         ediRegRePas = findViewById(R.id.ediRegRePas)
         btnRegOk = findViewById(R.id.btnRegOk)
         txtRegEnter = findViewById(R.id.txtRegEnter)
+        progressReg = findViewById(R.id.progressReg)
         val gson = Gson()
 
         txtRegEnter?.setOnClickListener {
@@ -69,17 +73,20 @@ class RegisterPage : AppCompatActivity() {
                 ediRegPas?.requestFocus()
                 return@setOnClickListener
             }
+            isLoading = true
+            progressReg?.visibility = ProgressBar.VISIBLE
+            btnRegOk?.visibility = Button.GONE
             val loginModels = LoginModels(email, password)
             val register: Call<Any?>? = ApiCleint().userService.register(loginModels)
             register?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.code() == 400) {
-                        val json = gson.fromJson(
-                            response.errorBody()?.charStream(),
-                            JsonObject::class.java
-                        )
+                        val json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                         val message = json.get("error").asString
                         if (message == "email already exist") {
+                            isLoading = false
+                            progressReg?.visibility = ProgressBar.GONE
+                            btnRegOk?.visibility = Button.VISIBLE
                             ediRegEmail?.error = "Hisob mavjud! Iltimos, boshqa email kiriting"
                             AlertDialog.Builder(this@RegisterPage)
                                 .setTitle("Hisob mavjud")
@@ -90,8 +97,10 @@ class RegisterPage : AppCompatActivity() {
                                 .show()
                             ediRegEmail?.requestFocus()
                         }
-                        Toast.makeText(this@RegisterPage, message, Toast.LENGTH_SHORT).show()
                     } else if (response.code() == 200) {
+                        isLoading = false
+                        progressReg?.visibility = ProgressBar.GONE
+                        btnRegOk?.visibility = Button.VISIBLE
                         val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                         val token = json.get("token").asString
                         val verefy = json.get("verefy").asString
@@ -104,6 +113,9 @@ class RegisterPage : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
+                    isLoading = false
+                    progressReg?.visibility = ProgressBar.GONE
+                    btnRegOk?.visibility = Button.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         ediRegEmail?.error = "Email is already taken"
                         ediRegEmail?.requestFocus()
