@@ -28,13 +28,11 @@ class Sample : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@Sample, "Success", Toast.LENGTH_SHORT).show()
                     val gson = Gson()
-                    //{"coments":[" coment"],"companets":[],"switchs":["true"],"times":["02:00"]}
                     val json = gson.toJson(response.body())
                     val jsonObject = JSONObject(json)
                     val times = jsonObject.getJSONArray("times")
                     val switchs = jsonObject.getJSONArray("switchs")
                     val coments = jsonObject.getJSONArray("coments")
-                    val companets = jsonObject.getJSONArray("companets")
                     for (i in 0 until times.length()) {
                         getTimes.times = times.getString(i)
                         getTimes.switchs = switchs.getString(i)
