@@ -59,9 +59,9 @@ class LoginPage : AppCompatActivity() {
                 ediLogPas?.error = "Please enter password"
             } else {
                 if (email.length < 6) {
-                    ediLogEmail?.error = "Email must be at least 6 characters"
+                    ediLogEmail?.error = "Pochta 6 ta belgidan kam bo'lishi mumkin emas"
                 } else if (password.length < 4) {
-                    ediLogPas?.error = "Password must be at least 5 characters"
+                    ediLogPas?.error = "Parol 4 ta belgidan kam bo'lishi mumkin emas"
                 } else {
                     isLoading = true
                     progressLog?.visibility = ProgressBar.VISIBLE
@@ -74,7 +74,7 @@ class LoginPage : AppCompatActivity() {
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 message = json?.get("error")?.asString
                                 if (message == "user is blocked") {
-                                    Toast.makeText(this@LoginPage, "Your account is blocked", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@LoginPage, "Diqqat!", Toast.LENGTH_SHORT).show()
                                     AlertDialog.Builder(this@LoginPage)
                                         .setTitle("DIQQAT!")
                                         .setMessage("Sizning hisobingiz bloklangan. Iltimos, administrator bilan bog'laning")
@@ -99,17 +99,20 @@ class LoginPage : AppCompatActivity() {
                                 json = gson.fromJson(response.errorBody()?.charStream(), JsonObject::class.java)
                                 var message = json?.get("error")?.asString
                                 if(message == "password is incorrect"){
-                                    ediLogPas?.error = "Password is incorrect"
+                                    ediLogPas?.error = "Parol noto'g'ri"
+                                }
+                                if(message == "email is incorrect"){
+                                    ediLogEmail?.error = "Bunday pochta mavjud emas"
                                 }
                                 if (message == "email is not verified") {
                                     AlertDialog.Builder(this@LoginPage)
-                                        .setTitle("DIQQAT!")
+                                        .setTitle("Diqqat!")
                                         .setMessage("Hisobingiz Tasdiqlanmagan. Tasdiqlash uchun kodni kiriting")
                                         .setPositiveButton("Tasdiqlash") { dialog, _ ->
                                             isLoading = true
                                             progressLog?.visibility = ProgressBar.VISIBLE
                                             btnLogLogin?.visibility = Button.GONE
-                                            val resendVeRefy: Call<Any?>? = ApiCleint().userService.resendverefy(email?.let { LoginModels(it, "") })
+                                            val resendVeRefy: Call<Any?>? = ApiCleint().userService.resendverefy(LoginModels(email, ""))
                                             resendVeRefy?.enqueue(object : retrofit2.Callback<Any?> {
                                                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                                                     if (response.code() == 400) {
