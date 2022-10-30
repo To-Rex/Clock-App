@@ -119,8 +119,7 @@ class LoginPage : AppCompatActivity() {
                                 val json = gson.fromJson(response.body().toString(), JsonObject::class.java)
                                 val token = json.get("token").asString
                                 val editor = sharedPreferences?.edit()
-                                editor?.putString("token", token)
-                                editor?.apply()
+                                editor?.putString("token", token)?.apply()
                                 startActivity(Intent(this@LoginPage, Sample::class.java))
                                 finish()
                                 Toast.makeText(this@LoginPage, token, Toast.LENGTH_SHORT).show()
