@@ -67,6 +67,7 @@ class Sample : AppCompatActivity() {
             addTime()
         }
     }
+
     private fun getAllTimes() {
         val getTime: Call<Any?>? = ApiCleint().userService.gettimes("Bearer $token")
         getTime?.enqueue(object : retrofit2.Callback<Any?> {
@@ -84,21 +85,22 @@ class Sample : AppCompatActivity() {
                         val time = times.getString(i)
                         val switchBox = switchS.getString(i)
                         val coMntS = comments.getString(i)
-                        timeList?.add(GetTimes(time, coMntS,switchBox))
+                        timeList?.add(GetTimes(time, coMntS, switchBox))
                         dataAdapters?.notifyDataSetChanged()
                     }
                     dataAdapters?.notifyDataSetChanged()
-                }else{
+                } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onFailure(call: Call<Any?>, t: Throwable) {
             }
         })
     }
 
     @SuppressLint("InflateParams", "MissingInflatedId", "NewApi")
-    private fun addTime(){
+    private fun addTime() {
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.add_item, null)
 
@@ -116,10 +118,11 @@ class Sample : AppCompatActivity() {
             val minute = digitalClock.minute
             val time = "$hour:$minute"
 
-            if (comment.isEmpty()){
+            if (comment.isEmpty()) {
                 comment = "No Comment"
             }
-            val addTime: Call<Any?>? = ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment,"true"))
+            val addTime: Call<Any?>? =
+                ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "true"))
             addTime?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.isSuccessful) {
@@ -127,11 +130,12 @@ class Sample : AppCompatActivity() {
                         dataAdapters?.notifyDataSetChanged()
                         getAllTimes()
                         addDialog.create().dismiss()
-                    }else{
+                    } else {
                         addDialog.create().dismiss()
                         Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
+
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                 }
             })
