@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.BaseAdapter
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.TimePicker
@@ -66,9 +67,17 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             val dialog = addDialog.create()
 
             val imgEtemDelete = views.findViewById<ImageView>(R.id.imgEtemDelete)
-            var imgEtemEdit = views.findViewById<ImageView>(R.id.imgEtemEdit)
+            val imgEtemEdit = views.findViewById<ImageView>(R.id.imgEtemEdit)
             val txtEtemComment = views.findViewById<TextView>(R.id.txtEtemComment)
             val timePickerEtem = views.findViewById<TimePicker>(R.id.timePickerEtem)
+            val progresEtemBar = views.findViewById<ProgressBar>(R.id.progresEtemBar)
+
+            progresEtemBar.visibility = View.VISIBLE
+            imgEtemDelete.visibility = View.GONE
+            imgEtemEdit.visibility = View.GONE
+            txtEtemComment.visibility = View.GONE
+            timePickerEtem.visibility = View.GONE
+
 
             timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
@@ -80,11 +89,21 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
                         } else {
+                            progresEtemBar.visibility = View.GONE
+                            imgEtemDelete.visibility = View.VISIBLE
+                            imgEtemEdit.visibility = View.VISIBLE
+                            txtEtemComment.visibility = View.VISIBLE
+                            timePickerEtem.visibility = View.VISIBLE
                             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<Any?>, t: Throwable) {
+                        progresEtemBar.visibility = View.GONE
+                        imgEtemDelete.visibility = View.VISIBLE
+                        imgEtemEdit.visibility = View.VISIBLE
+                        txtEtemComment.visibility = View.VISIBLE
+                        timePickerEtem.visibility = View.VISIBLE
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
                 })
