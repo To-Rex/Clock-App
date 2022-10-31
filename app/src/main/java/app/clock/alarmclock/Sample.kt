@@ -123,7 +123,7 @@ class Sample : AppCompatActivity() {
             }
 
             val addTime: Call<Any?>? =
-                ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "true"))
+                ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "false"))
             addTime?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.isSuccessful) {
