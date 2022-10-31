@@ -61,49 +61,53 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
         switchItem.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                val updateResponse: Call<Any?>? =
-                    ApiCleint().userService.updateTime(
-                        position, token,
-                        GetTimes(
-                            timeList?.get(position)?.times!!,
-                            timeList?.get(position)?.coments!!,
-                            "true"
-                        )
-                    )
-                updateResponse?.enqueue(object : retrofit2.Callback<Any?> {
-                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                val getTimes = GetTimes(
+                    timeList?.get(position)?.times!!,
+                    timeList?.get(position)?.coments!!,
+                    "true"
+                )
+                val updateTimeResponse: Call<Any?>? =
+                    ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
+                updateTimeResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                    override fun onResponse(
+                        call: Call<Any?>,
+                        response: retrofit2.Response<Any?>
+                    ) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<Any?>, t: Throwable) {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
                     }
                 })
-            } else {
-                val updateResponse: Call<Any?>? =
-                    ApiCleint().userService.updateTime(
-                        position, token,
-                        GetTimes(
-                            timeList?.get(position)?.times!!,
-                            timeList?.get(position)?.coments!!,
-                            "false"
-                        )
-                    )
-                updateResponse?.enqueue(object : retrofit2.Callback<Any?> {
-                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+            }else{
+                val getTimes = GetTimes(
+                    timeList?.get(position)?.times!!,
+                    timeList?.get(position)?.coments!!,
+                    "false"
+                )
+                val updateTimeResponse: Call<Any?>? =
+                    ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
+                updateTimeResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                    override fun onResponse(
+                        call: Call<Any?>,
+                        response: retrofit2.Response<Any?>
+                    ) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT)
+                                .show()
                         } else {
-                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<Any?>, t: Throwable) {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
