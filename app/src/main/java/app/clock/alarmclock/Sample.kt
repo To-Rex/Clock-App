@@ -46,7 +46,6 @@ class Sample : AppCompatActivity() {
     //var times = array
     var times = JSONArray()
     var switchS = JSONArray()
-    val calendar = Calendar.getInstance()
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +88,7 @@ class Sample : AppCompatActivity() {
             getAllTimes()
         }
         floatRefresh?.setOnLongClickListener {
-           // stopAlarm()
+            // stopAlarm()
             Toast.makeText(this, "Refresh", Toast.LENGTH_SHORT).show()
             true
         }
@@ -133,23 +132,27 @@ class Sample : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("ShortAlarm")
     @RequiresApi(Build.VERSION_CODES.M)
     private fun startAlarm() {
         //times = JSONArray() index equals current time index in array and switchS = JSONArray() index equals true
         for (i in 0 until times.length()) {
-            if (switchS.getString(i) == "true") {
+            if (switchS.getString(i) == "true" && times.getString(i) != "") {
                 val time = times.getString(i)
                 val timeSplit = time.split(":")
                 val hour = timeSplit[0].toInt()
                 val minute = timeSplit[1].toInt()
-                //val calendar = Calendar.getInstance()
-                calendar.set(Calendar.HOUR, hour)
+                val calendar = Calendar.getInstance()
+                if (calendar.get(Calendar.HOUR_OF_DAY) > hour) {
+                    calendar.add(Calendar.DATE, 1)
+                }
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)
-                Toast.makeText(this, Calendar.HOUR.toString(), Toast.LENGTH_SHORT).show()
+                calendar.set(Calendar.SECOND, 0)
                 val intent = Intent(this, Resiver::class.java)
                 val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
                 alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-                alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+                alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 0, pendingIntent)
             }
         }
     }
@@ -166,7 +169,7 @@ class Sample : AppCompatActivity() {
         digitalClock.setIs24HourView(true)
         val addDialog = AlertDialog.Builder(this)
         addDialog.setView(view)
-
+        val dialog = addDialog.create()
         var comment = ediSamComment.text.toString()
         btnSamAdd.setOnClickListener {
 
@@ -178,16 +181,17 @@ class Sample : AppCompatActivity() {
                 comment = "No Comment"
             }
 
-            val addTime: Call<Any?>? = ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "false"))
+            val addTime: Call<Any?>? =
+                ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "false"))
             addTime?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                     if (response.isSuccessful) {
                         timeList?.clear()
                         dataAdapters?.notifyDataSetChanged()
                         getAllTimes()
-                        addDialog.create().dismiss()
+                        dialog.dismiss()
                     } else {
-                        addDialog.create().dismiss()
+                        dialog.dismiss()
                         Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -197,7 +201,6 @@ class Sample : AppCompatActivity() {
             })
         }
 
-        val dialog = addDialog.create()
         dialog.show()
     }
 
