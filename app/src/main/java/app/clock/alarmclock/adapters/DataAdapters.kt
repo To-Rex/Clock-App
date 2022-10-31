@@ -79,7 +79,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 AlertDialog.Builder(context as Activity)
                     .setTitle("Diqqat!")
                     .setMessage("Siz rostdan ham ushbu vaqtni o'chirmoqchimisiz?")
-                    .setPositiveButton("OK") { dialog, _ ->
+                    .setPositiveButton("OK") { dialogs, _ ->
                         progresEtemBar.visibility = View.VISIBLE
                         imgEtemDelete.visibility = View.GONE
                         imgEtemEdit.visibility = View.GONE
@@ -91,6 +91,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                                 if (response.isSuccessful) {
                                     Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                                    dialogs.dismiss()
                                     dialog.dismiss()
                                 } else {
                                     progresEtemBar.visibility = View.GONE
@@ -118,10 +119,8 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                     }
                     .show()
             }
-
             dialog.show()
         }
-
         return view
     }
 }
