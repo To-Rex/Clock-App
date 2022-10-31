@@ -34,7 +34,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         return position.toLong()
     }
 
-    @SuppressLint("ViewHolder", "UseSwitchCompatOrMaterialCode")
+    @SuppressLint("ViewHolder", "UseSwitchCompatOrMaterialCode", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
         val txtTime = view.findViewById<TextView>(R.id.txtTimes)
@@ -44,6 +44,11 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         txtTime.text = timeList?.get(position)?.times
         txtComents.text = timeList?.get(position)?.coments
         switchItem.isChecked = timeList?.get(position)?.switchs == "true"
+
+        view.setOnClickListener {
+            Toast.makeText(context, timeList?.get(position)?.times, Toast.LENGTH_SHORT).show()
+        }
+
         return view
     }
 }

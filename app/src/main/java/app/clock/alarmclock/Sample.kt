@@ -121,6 +121,7 @@ class Sample : AppCompatActivity() {
             if (comment.isEmpty()) {
                 comment = "No Comment"
             }
+
             val addTime: Call<Any?>? =
                 ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "true"))
             addTime?.enqueue(object : retrofit2.Callback<Any?> {
