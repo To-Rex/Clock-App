@@ -50,7 +50,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         view.setOnClickListener {
             Toast.makeText(context, timeList?.get(position)?.times, Toast.LENGTH_SHORT).show()
             val inflater = LayoutInflater.from(context)
-            val views = inflater.inflate(R.layout.add_item, null)
+            val views = inflater.inflate(R.layout.edit_item, null)
             val addDialog = AlertDialog.Builder(context as Activity)
 
             addDialog.setView(views)
