@@ -34,4 +34,10 @@ interface UserService {
     @POST("deletetime")
     fun deleteTime(@Query("index") index: Int, @Header("Authorization") token: String?): Call<Any?>?
 
+    @POST("updatetime")
+    fun updatetime(
+        @Query("index") index: Int,
+        @Header("Authorization") token: String?,
+        @Body getTimes: GetTimes?
+    ): Call<Any?>?
 }
