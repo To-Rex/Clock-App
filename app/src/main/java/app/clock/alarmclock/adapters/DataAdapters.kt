@@ -119,6 +119,20 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                     }
                     .show()
             }
+
+            imgEtemEdit.setOnClickListener {
+                dialog.dismiss()
+                val inflaters = LayoutInflater.from(context)
+                val viewEdit = inflaters.inflate(R.layout.add_item, null)
+                val addDialogs = AlertDialog.Builder(context as Activity)
+                addDialogs.setView(viewEdit)
+
+                
+
+                val dialogs = addDialogs.create()
+                dialogs.show()
+            }
+
             dialog.show()
         }
         return view
