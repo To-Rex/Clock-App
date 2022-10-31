@@ -53,7 +53,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             AppCompatActivity.MODE_PRIVATE
         )
         val token = sharedPreferences?.getString("token", "")!!
-        Toast.makeText(context, token, Toast.LENGTH_SHORT).show()
 
         txtTime.text = timeList?.get(position)?.times
         txtComents.text = timeList?.get(position)?.coments
@@ -74,8 +73,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
             imgEtemDelete.setOnClickListener {
-
-                //val deleteResponse: Call<Any?>? = ApiCleint().userService.deleteTime()
+                val deleteResponse: Call<Any?>? = ApiCleint().userService.deleteTime(position,"Bearer $token",)
             }
 
             dialog.show()
