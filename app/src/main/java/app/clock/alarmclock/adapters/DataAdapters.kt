@@ -135,8 +135,25 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 ediSamComment.setText(timeList?.get(position)?.coments)
                 digitalClock.hour = timeList?.get(position)?.times?.substring(0, 2)?.toInt()!!
                 digitalClock.minute = timeList?.get(position)?.times?.substring(3, 5)?.toInt()!!
+                
+                btnSamAdd.setOnClickListener {
+                    val getTimes = GetTimes("${digitalClock.hour}:${digitalClock.minute}", ediSamComment.text.toString(), timeList?.get(position)!!.switchs)
+                    val updateTimeResponse:  Call<Any?>? = ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
+                    updateTimeResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                        override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+                            } else {
+                                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
-
+                        override fun onFailure(call: Call<Any?>, t: Throwable) {
+                            Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
 
                 val dialogs = addDialogs.create()
                 dialogs.show()
