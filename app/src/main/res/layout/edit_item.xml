@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
@@ -14,7 +14,42 @@
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
-        
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:timePickerMode="spinner"
+            android:format24Hour="HH:mm:ss"
+            android:textColor="@color/teal_700"
+            android:textSize="50sp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text"
+            android:hint="@string/izoh"
+            android:inputType="text"
+            android:paddingStart="15dp"
+            android:textColorHint="#625E5E"
+            android:textSize="15sp"
+            tools:ignore="Autofill,RtlSymmetry" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/button_fon"
+            android:text="@string/saqlash"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            tools:ignore="Autofill,RtlSymmetry" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
