@@ -53,6 +53,7 @@ class Sample : AppCompatActivity() {
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pendingIntent)
 
+
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
 
