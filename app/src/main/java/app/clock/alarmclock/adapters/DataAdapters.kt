@@ -134,6 +134,9 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 digitalClock.setIs24HourView(true)
                 ediSamComment.setText(timeList?.get(position)?.coments)
                 digitalClock.hour = timeList?.get(position)?.times?.substring(0, 2)?.toInt()!!
+                digitalClock.minute = timeList?.get(position)?.times?.substring(3, 5)?.toInt()!!
+
+                
 
                 val dialogs = addDialogs.create()
                 dialogs.show()
