@@ -34,7 +34,7 @@ class Sample : AppCompatActivity() {
     private var floatRefresh: FloatingActionButton? = null
     private var floatAdd: FloatingActionButton? = null
 
-    final var ALARM_REQUEST_CODE = 100
+    private var ALARM_REQUEST_CODE = 100
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "ShortAlarm")
     override fun onCreate(savedInstanceState: Bundle?) {
