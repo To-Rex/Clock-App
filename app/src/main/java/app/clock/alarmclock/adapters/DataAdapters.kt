@@ -3,6 +3,7 @@ package app.clock.alarmclock.adapters
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.BaseAdapter
@@ -11,14 +12,19 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import app.clock.alarmclock.R
+import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
+import retrofit2.Call
 
 class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapter() {
 
     private var context: Context? = null
     private var timeList: ArrayList<GetTimes>? = null
+    private var sharedPreferences: SharedPreferences? = null
 
     init {
         this.context = context
@@ -43,6 +49,11 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         val txtTime = view.findViewById<TextView>(R.id.txtTimes)
         val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
         val switchItem = view.findViewById<View>(R.id.switchItem) as Switch
+        sharedPreferences = (context as Activity).getSharedPreferences("app.clock.alarmClock",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        val token = sharedPreferences?.getString("token", "")!!
+        Toast.makeText(context, token, Toast.LENGTH_SHORT).show()
 
         txtTime.text = timeList?.get(position)?.times
         txtComents.text = timeList?.get(position)?.coments
@@ -63,8 +74,8 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
             imgEtemDelete.setOnClickListener {
-                
-                //dialog.dismiss()
+
+                //val deleteResponse: Call<Any?>? = ApiCleint().userService.deleteTime()
             }
 
             dialog.show()

@@ -32,6 +32,6 @@ interface UserService {
     fun addtime(@Header("Authorization") token: String?, @Body getTimes: GetTimes?): Call<Any?>?
 
     @POST("deletetime")
-    fun deletetime(@Query("index") index: Int, @Header("Authorization") token: String?, @Body getTimes: GetTimes?): Call<Any?>?
+    fun deleteTime(@Query("index") index: Int, @Header("Authorization") token: String?): Call<Any?>?
 
 }
