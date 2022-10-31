@@ -90,7 +90,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         deleteResponse?.enqueue(object : retrofit2.Callback<Any?> {
                             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                                 if (response.isSuccessful) {
-                                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Vaqt o`chirildi", Toast.LENGTH_SHORT).show()
                                     dialogs.dismiss()
                                     dialog.dismiss()
                                 } else {
@@ -109,7 +109,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                                 imgEtemEdit.visibility = View.VISIBLE
                                 txtEtemComment.visibility = View.VISIBLE
                                 timePickerEtem.visibility = View.VISIBLE
-                                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
                             }
                         })
                         dialog.dismiss()
