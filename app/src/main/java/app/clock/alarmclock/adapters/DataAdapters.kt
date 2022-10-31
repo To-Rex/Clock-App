@@ -135,7 +135,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 ediSamComment.setText(timeList?.get(position)?.coments)
                 digitalClock.hour = timeList?.get(position)?.times?.substring(0, 2)?.toInt()!!
                 digitalClock.minute = timeList?.get(position)?.times?.substring(3, 5)?.toInt()!!
-                
+
                 btnSamAdd.setOnClickListener {
                     val getTimes = GetTimes("${digitalClock.hour}:${digitalClock.minute}", ediSamComment.text.toString(), timeList?.get(position)!!.switchs)
                     val updateTimeResponse:  Call<Any?>? = ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
@@ -145,7 +145,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                                 Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
                             } else {
-                                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
                             }
                         }
 
