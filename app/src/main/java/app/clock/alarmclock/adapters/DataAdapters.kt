@@ -59,6 +59,32 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         txtComents.text = timeList?.get(position)?.coments
         switchItem.isChecked = timeList?.get(position)?.switchs == "true"
 
+        switchItem.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                val updateResponse: Call<Any?>? =
+                    ApiCleint().userService.updateTime(
+                        position, token,
+                        GetTimes(
+                            timeList?.get(position)?.times!!,
+                            timeList?.get(position)?.coments!!,
+                            "true"
+                        )
+                    )
+                updateResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Any?>, t: Throwable) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
         view.setOnClickListener {
             val inflater = LayoutInflater.from(context)
             val views = inflater.inflate(R.layout.edit_item, null)
@@ -92,9 +118,13 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         val deleteResponse: Call<Any?>? =
                             ApiCleint().userService.deleteTime(position, "Bearer $token")
                         deleteResponse?.enqueue(object : retrofit2.Callback<Any?> {
-                            override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                            override fun onResponse(
+                                call: Call<Any?>,
+                                response: retrofit2.Response<Any?>
+                            ) {
                                 if (response.isSuccessful) {
-                                    Toast.makeText(context, "Vaqt o`chirildi", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Vaqt o`chirildi", Toast.LENGTH_SHORT)
+                                        .show()
                                     dialogs.dismiss()
                                     dialog.dismiss()
                                 } else {
@@ -113,7 +143,8 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                                 imgEtemEdit.visibility = View.VISIBLE
                                 txtEtemComment.visibility = View.VISIBLE
                                 timePickerEtem.visibility = View.VISIBLE
-                                Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         })
                         dialog.dismiss()
@@ -141,12 +172,21 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 digitalClock.hour = list?.get(0)?.toInt()!!
                 digitalClock.minute = list[1].toInt()
                 btnSamAdd.setOnClickListener {
-                    val getTimes = GetTimes("${digitalClock.hour}:${digitalClock.minute}", ediSamComment.text.toString(), timeList?.get(position)!!.switchs)
-                    val updateTimeResponse:  Call<Any?>? = ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
+                    val getTimes = GetTimes(
+                        "${digitalClock.hour}:${digitalClock.minute}",
+                        ediSamComment.text.toString(),
+                        timeList?.get(position)!!.switchs
+                    )
+                    val updateTimeResponse: Call<Any?>? =
+                        ApiCleint().userService.updateTime(position, "Bearer $token", getTimes)
                     updateTimeResponse?.enqueue(object : retrofit2.Callback<Any?> {
-                        override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                        override fun onResponse(
+                            call: Call<Any?>,
+                            response: retrofit2.Response<Any?>
+                        ) {
                             if (response.isSuccessful) {
-                                Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT)
+                                    .show()
                                 dialog.dismiss()
                             } else {
                                 Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
