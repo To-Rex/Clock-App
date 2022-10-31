@@ -1,6 +1,8 @@
 package app.clock.alarmclock
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.get
 import app.clock.alarmclock.adapters.DataAdapters
 import app.clock.alarmclock.cleint.ApiCleint
+import app.clock.alarmclock.cleint.Resiver
 import app.clock.alarmclock.models.GetTimes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
@@ -31,7 +34,9 @@ class Sample : AppCompatActivity() {
     private var floatRefresh: FloatingActionButton? = null
     private var floatAdd: FloatingActionButton? = null
 
-    @SuppressLint("MissingInflatedId")
+    final var ALARM_REQUEST_CODE = 100
+
+    @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "ShortAlarm")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -42,6 +47,11 @@ class Sample : AppCompatActivity() {
         imgSampleSet = findViewById(R.id.imgSamleSet)
         floatRefresh = findViewById(R.id.floatRefresh)
         floatAdd = findViewById(R.id.floatAdd)
+
+        val intent = Intent(this, Resiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pendingIntent)
 
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
