@@ -133,13 +133,12 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
                 digitalClock.setIs24HourView(true)
                 ediSamComment.setText(timeList?.get(position)?.coments)
-                if(timeList?.get(position)?.times?.length!! > 5){
-                    digitalClock.hour = timeList?.get(position)?.times?.substring(0, 2)?.toInt()!!
-                    digitalClock.minute = timeList?.get(position)?.times?.substring(3, 5)?.toInt()!!
-                }else{
-                    digitalClock.hour = timeList?.get(position)?.times?.toInt()!!
-                    digitalClock.minute = timeList?.get(position)?.times?.toInt()!!
+
+                if(timeList?.get(position)?.times?.length!! == 4){
+                    digitalClock.hour = timeList?.get(position)?.times?.replace(":", "")?.substring(0, 1)?.toInt()!!
+                    digitalClock.minute = timeList?.get(position)?.times?.substring(3, 4)?.toInt()!!
                 }
+                Toast.makeText(context, timeList?.get(position)?.times, Toast.LENGTH_SHORT).show()
 
                 btnSamAdd.setOnClickListener {
                     val getTimes = GetTimes("${digitalClock.hour}:${digitalClock.minute}", ediSamComment.text.toString(), timeList?.get(position)!!.switchs)
