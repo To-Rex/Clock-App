@@ -8,6 +8,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -33,10 +35,11 @@ class Sample : AppCompatActivity() {
     private var progressSample: ProgressBar? = null
     private var floatRefresh: FloatingActionButton? = null
     private var floatAdd: FloatingActionButton? = null
+    var alarmManager: AlarmManager? = null
 
-    private var ALARM_REQUEST_CODE = 100
+    final var ALARM_REQUEST_CODE = 100
 
-    @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "ShortAlarm")
+    @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -50,9 +53,8 @@ class Sample : AppCompatActivity() {
 
         val intent = Intent(this, Resiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pendingIntent)
-
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 0, pendingIntent)
 
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
