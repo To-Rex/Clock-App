@@ -36,7 +36,7 @@ class Sample : AppCompatActivity() {
 
     var ALARM_REQUEST_CODE = 100
 
-    @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag")
+    @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -49,13 +49,13 @@ class Sample : AppCompatActivity() {
         floatAdd = findViewById(R.id.floatAdd)
 
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, Resiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-            alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-            alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 0, pendingIntent)
-
-        }, 3000)
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            val intent = Intent(this, Resiver::class.java)
+//            val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
+//            alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+//            alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 0, pendingIntent)
+//
+//        }, 3000)
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
 
