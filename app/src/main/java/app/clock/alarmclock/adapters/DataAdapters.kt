@@ -73,7 +73,21 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
             imgEtemDelete.setOnClickListener {
-                val deleteResponse: Call<Any?>? = ApiCleint().userService.deleteTime(position,"Bearer $token",)
+                val deleteResponse: Call<Any?>? = ApiCleint().userService.deleteTime(position,"Bearer $token")
+                deleteResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Any?>, t: Throwable) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
 
             dialog.show()
