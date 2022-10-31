@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.BaseAdapter
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.R
@@ -36,7 +38,9 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         return position.toLong()
     }
 
-    @SuppressLint("ViewHolder", "UseSwitchCompatOrMaterialCode", "InflateParams")
+    @SuppressLint("ViewHolder", "UseSwitchCompatOrMaterialCode", "InflateParams",
+        "MissingInflatedId"
+    )
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
         val txtTime = view.findViewById<TextView>(R.id.txtTimes)
@@ -52,6 +56,13 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             val inflater = LayoutInflater.from(context)
             val views = inflater.inflate(R.layout.edit_item, null)
             val addDialog = AlertDialog.Builder(context as Activity)
+
+            var imgEtemDelete = views.findViewById<ImageView>(R.id.imgEtemDelete)
+            var imgEtemEdit = views.findViewById<ImageView>(R.id.imgEtemEdit)
+            val txtEtemComment = views.findViewById<TextView>(R.id.txtEtemComment)
+            var timePickerEtem = views.findViewById<TimePicker>(R.id.timePickerEtem)
+
+            txtEtemComment.text = timeList?.get(position)?.coments
 
             addDialog.setView(views)
             val dialog = addDialog.create()
