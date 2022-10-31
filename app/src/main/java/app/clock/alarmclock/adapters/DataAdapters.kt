@@ -74,8 +74,12 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
             timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
+
+            val time = timeList?.get(position)?.times?.split(":")
+            timePickerEtem.hour = time?.get(0)?.toInt()!!
+            timePickerEtem.minute = time[1].toInt()
+
             imgEtemDelete.setOnClickListener {
-                //delete dialog
                 AlertDialog.Builder(context as Activity)
                     .setTitle("Diqqat!")
                     .setMessage("Siz rostdan ham ushbu vaqtni o'chirmoqchimisiz?")
@@ -133,12 +137,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
                 digitalClock.setIs24HourView(true)
                 ediSamComment.setText(timeList?.get(position)?.coments)
-
-//                if(timeList?.get(position)?.times?.length!! == 4){
-//                    digitalClock.hour = timeList?.get(position)?.times?.substring(0, 1)!!.toInt()
-//                    digitalClock.minute = timeList?.get(position)?.times?.substring(3, 4)?.toInt()!!
-//                }
-                //virable list
                 val list = timeList?.get(position)?.times?.split(":")
                 digitalClock.hour = list?.get(0)?.toInt()!!
                 digitalClock.minute = list[1].toInt()
