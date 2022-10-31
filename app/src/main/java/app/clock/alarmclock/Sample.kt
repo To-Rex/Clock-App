@@ -170,8 +170,8 @@ class Sample : AppCompatActivity() {
         var comment = ediSamComment.text.toString()
         btnSamAdd.setOnClickListener {
 
-            val hour = digitalClock.hour.and(0xff)
-            val minute = digitalClock.minute.and(0xff)
+            val hour = digitalClock.hour
+            val minute = digitalClock.minute
             val time = "$hour:$minute"
 
             if (comment.isEmpty()) {
