@@ -4,6 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -14,6 +17,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
+
         <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,30 +27,21 @@
             android:format24Hour="HH:mm:ss"
             android:textColor="@color/teal_700"
             android:textSize="50sp" />
-        <EditText
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
             android:background="@drawable/edit_text"
-            android:hint="@string/izoh"
-            android:inputType="text"
-            android:paddingStart="15dp"
-            android:textColorHint="#625E5E"
+            android:text="@string/izoh"
+            android:textColor="@color/teal_700"
             android:textSize="15sp"
             tools:ignore="Autofill,RtlSymmetry" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/button_fon"
-            android:text="@string/saqlash"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            tools:ignore="Autofill,RtlSymmetry" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp" />
