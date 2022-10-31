@@ -74,7 +74,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         response: retrofit2.Response<Any?>
                     ) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, "budilnik yondi", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
                             Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
@@ -85,7 +85,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
                     }
                 })
-            }else{
+            } else {
                 val getTimes = GetTimes(
                     timeList?.get(position)?.times!!,
                     timeList?.get(position)?.coments!!,
@@ -99,7 +99,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         response: retrofit2.Response<Any?>
                     ) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, "Vaqt o`zgartirildi", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, "budilnik o'chirildi", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
                             Toast.makeText(context, "Xatolik", Toast.LENGTH_SHORT).show()
