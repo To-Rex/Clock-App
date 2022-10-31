@@ -7,6 +7,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 interface UserService {
     @POST("login")
@@ -21,11 +22,16 @@ interface UserService {
     @POST("verefyuser")
     fun verefyuser(@Body loginModels: LoginModels?): Call<Any?>?
 
-    @POST("cheskverefy")
-    fun cheskverefy(@Body loginModels: LoginModels?): Call<Any?>?
+    //@POST("cheskverefy")
+    //fun cheskverefy(@Body loginModels: LoginModels?): Call<Any?>?
 
     @GET("gettimes")
     fun gettimes(@Header("Authorization") token: String?): Call<Any?>?
+
     @POST("addtime")
     fun addtime(@Header("Authorization") token: String?, @Body getTimes: GetTimes?): Call<Any?>?
+
+    @POST("deletetime")
+    fun deletetime(@Query("index") index: Int, @Header("Authorization") token: String?, @Body getTimes: GetTimes?): Call<Any?>?
+
 }
