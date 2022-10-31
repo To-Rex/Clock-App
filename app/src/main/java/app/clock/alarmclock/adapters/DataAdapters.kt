@@ -3,12 +3,14 @@ package app.clock.alarmclock.adapters
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.BaseAdapter
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import app.clock.alarmclock.R
 import app.clock.alarmclock.models.GetTimes
 
@@ -47,6 +49,13 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
         view.setOnClickListener {
             Toast.makeText(context, timeList?.get(position)?.times, Toast.LENGTH_SHORT).show()
+            val inflater = LayoutInflater.from(context)
+            val views = inflater.inflate(R.layout.add_item, null)
+            val addDialog = AlertDialog.Builder(context as Activity)
+
+            addDialog.setView(views)
+            val dialog = addDialog.create()
+            dialog.show()
         }
 
         return view
