@@ -42,7 +42,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         "ViewHolder",
         "UseSwitchCompatOrMaterialCode",
         "InflateParams",
-        "MissingInflatedId"
+        "MissingInflatedId", "NewApi"
     )
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
@@ -127,7 +127,13 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 val addDialogs = AlertDialog.Builder(context as Activity)
                 addDialogs.setView(viewEdit)
 
-                
+                val ediSamComment = viewEdit.findViewById<EditText>(R.id.ediSamComment)
+                val btnSamAdd = viewEdit.findViewById<Button>(R.id.btnSamAdd)
+                val digitalClock = viewEdit.findViewById<TimePicker>(R.id.digitalClock)
+
+                digitalClock.setIs24HourView(true)
+                ediSamComment.setText(timeList?.get(position)?.coments)
+                digitalClock.hour = timeList?.get(position)?.times?.substring(0, 2)?.toInt()!!
 
                 val dialogs = addDialogs.create()
                 dialogs.show()
