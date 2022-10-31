@@ -52,7 +52,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         switchItem.isChecked = timeList?.get(position)?.switchs == "true"
 
         view.setOnClickListener {
-            Toast.makeText(context, timeList?.get(position)?.times, Toast.LENGTH_SHORT).show()
             val inflater = LayoutInflater.from(context)
             val views = inflater.inflate(R.layout.edit_item, null)
             val addDialog = AlertDialog.Builder(context as Activity)
@@ -60,8 +59,9 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             var imgEtemDelete = views.findViewById<ImageView>(R.id.imgEtemDelete)
             var imgEtemEdit = views.findViewById<ImageView>(R.id.imgEtemEdit)
             val txtEtemComment = views.findViewById<TextView>(R.id.txtEtemComment)
-            var timePickerEtem = views.findViewById<TimePicker>(R.id.timePickerEtem)
+            val timePickerEtem = views.findViewById<TimePicker>(R.id.timePickerEtem)
 
+            timePickerEtem.setIs24HourView(true)
             txtEtemComment.text = timeList?.get(position)?.coments
 
             addDialog.setView(views)
