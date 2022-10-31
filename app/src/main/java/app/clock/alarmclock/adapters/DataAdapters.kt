@@ -83,6 +83,29 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                     }
                 })
+            } else {
+                val updateResponse: Call<Any?>? =
+                    ApiCleint().userService.updateTime(
+                        position, token,
+                        GetTimes(
+                            timeList?.get(position)?.times!!,
+                            timeList?.get(position)?.coments!!,
+                            "false"
+                        )
+                    )
+                updateResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                    override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Any?>, t: Throwable) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         }
         view.setOnClickListener {
