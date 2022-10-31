@@ -232,6 +232,40 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
             dialog.show()
         }
+        view.setOnLongClickListener(View.OnLongClickListener {
+            AlertDialog.Builder(context as Activity)
+                .setTitle("Diqqat!")
+                .setMessage("Siz rostdan ham ushbu vaqtni o'chirmoqchimisiz?")
+                .setPositiveButton("OK") { dialogs, _ ->
+                    val deleteResponse: Call<Any?>? =
+                        ApiCleint().userService.deleteTime(position, "Bearer $token")
+                    deleteResponse?.enqueue(object : retrofit2.Callback<Any?> {
+                        override fun onResponse(
+                            call: Call<Any?>,
+                            response: retrofit2.Response<Any?>
+                        ) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Vaqt o`chirildi", Toast.LENGTH_SHORT)
+                                    .show()
+                                dialogs.dismiss()
+                            } else {
+                                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Any?>, t: Throwable) {
+                            Toast.makeText(context, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                    dialogs.dismiss()
+                }
+                .setNegativeButton("Bekor qilish") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+            return@OnLongClickListener true
+        })
+
         return view
     }
 }
