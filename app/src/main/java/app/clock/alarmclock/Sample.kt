@@ -143,16 +143,20 @@ class Sample : AppCompatActivity() {
                 val hour = timeSplit[0].toInt()
                 val minute = timeSplit[1].toInt()
                 val calendar = Calendar.getInstance()
-                if (calendar.get(Calendar.HOUR_OF_DAY) > hour) {
-                    calendar.add(Calendar.DATE, 1)
-                }
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)
                 calendar.set(Calendar.SECOND, 0)
-                val intent = Intent(this, Resiver::class.java)
-                val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
-                alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-                alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 0, pendingIntent)
+                if (calendar.get(Calendar.HOUR_OF_DAY) == hour && calendar.get(Calendar.MINUTE) == minute) {
+                    val intent = Intent(this, Resiver::class.java)
+                    val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
+                    alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+                    alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, 0, pendingIntent)
+
+                    /*Handler(Looper.getMainLooper()).postDelayed({
+                        Toast.makeText(this, "Alarm set", Toast.LENGTH_SHORT).show()
+                        alarmManager!!.cancel(pendingIntent)
+                    }, 3000)*/
+                }
             }
         }
     }
