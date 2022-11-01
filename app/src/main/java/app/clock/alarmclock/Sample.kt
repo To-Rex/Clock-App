@@ -135,7 +135,6 @@ class Sample : AppCompatActivity() {
     @SuppressLint("ShortAlarm")
     @RequiresApi(Build.VERSION_CODES.M)
     private fun startAlarm() {
-        //times = JSONArray() index equals current time index in array and switchS = JSONArray() index equals true
         for (i in 0 until times.length()) {
             if (switchS.getString(i) == "true" && times.getString(i) != "") {
                 val time = times.getString(i)
