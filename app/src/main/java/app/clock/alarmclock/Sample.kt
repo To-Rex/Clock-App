@@ -6,15 +6,13 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import app.clock.alarmclock.adapters.DataAdapters
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.cleint.Resiver
@@ -24,9 +22,7 @@ import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class Sample : AppCompatActivity() {
 
@@ -119,9 +115,7 @@ class Sample : AppCompatActivity() {
                         dataAdapters?.notifyDataSetChanged()
                     }
                     dataAdapters?.notifyDataSetChanged()
-                    if (timeList?.size != 0) {
-                        startAlarm()
-                    }
+                    startAlarm()
                 } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                 }
@@ -212,5 +206,23 @@ class Sample : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmInfoPendingIntent(): PendingIntent? {
+        val alarmInfoIntent = Intent(this, MainActivity::class.java)
+        alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return PendingIntent.getActivity(
+            this,
+            0,
+            alarmInfoIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmActionPendingIntent(): PendingIntent? {
+        val intent = Intent(this, AlarmActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
 
 }
