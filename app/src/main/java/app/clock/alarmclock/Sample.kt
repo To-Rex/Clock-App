@@ -145,7 +145,6 @@ class Sample : AppCompatActivity() {
                 val calendar = Calendar.getInstance()
                 calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
                 calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
-                Toast.makeText(this, calendar.get(Calendar.HOUR_OF_DAY).toString() + ":" + calendar.get(Calendar.MINUTE).toString(), Toast.LENGTH_SHORT).show()
                 if (calendar.get(Calendar.HOUR_OF_DAY) == hour && calendar.get(Calendar.MINUTE) == minute) {
                     Toast.makeText(this, "Alarm", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, Resiver::class.java)
