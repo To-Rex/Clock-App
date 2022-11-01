@@ -156,7 +156,6 @@ class Sample : AppCompatActivity() {
                         Toast.makeText(this, "Alarm set", Toast.LENGTH_SHORT).show()
                         alarmManager!!.cancel(pendingIntent)
                     }, 3000)*/
-
             }
         }
     }
