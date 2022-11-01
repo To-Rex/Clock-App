@@ -88,7 +88,7 @@ class Sample : AppCompatActivity() {
             getAllTimes()
         }
         floatRefresh?.setOnLongClickListener {
-            // stopAlarm()
+            stopAlarm()
             Toast.makeText(this, "Refresh", Toast.LENGTH_SHORT).show()
             true
         }
@@ -157,6 +157,12 @@ class Sample : AppCompatActivity() {
                     }, 3000)*/
             }
         }
+    }
+    private fun stopAlarm() {
+        val intent = Intent(this, Resiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager!!.cancel(pendingIntent)
     }
 
     @SuppressLint("InflateParams", "MissingInflatedId", "NewApi")
