@@ -22,4 +22,10 @@ class AlarmActvity : AppCompatActivity() {
         }
 
     }
+    override fun onDestroy() {
+        if (ringtone != null && ringtone!!.isPlaying) {
+            ringtone!!.stop()
+        }
+        super.onDestroy()
+    }
 }
