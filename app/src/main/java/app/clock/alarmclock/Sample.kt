@@ -193,6 +193,12 @@ class Sample : AppCompatActivity() {
                 val calendar = Calendar.getInstance()
                 calendar[Calendar.MINUTE] = minute.toInt()
                 calendar[Calendar.HOUR_OF_DAY] = hour.toInt()
+
+                if (calendar.timeInMillis < System.currentTimeMillis()) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+                }
+                
+
                 Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
 
                 val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
