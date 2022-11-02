@@ -139,14 +139,16 @@ class Sample : AppCompatActivity() {
         val addDialog = AlertDialog.Builder(this)
         addDialog.setView(view)
         val dialog = addDialog.create()
-        var comment = ediSamComment.text.toString()
+
         btnSamAdd.setOnClickListener {
+
             btnSamAdd.isEnabled = false
             val hour = digitalClock.hour
             val minute = digitalClock.minute
             val time = "$hour:$minute"
+            var comment = ediSamComment.text.toString()
 
-            if (comment.isEmpty()) {
+            if (ediSamComment.text.isEmpty()) {
                 comment = "No Comment"
             }
 
