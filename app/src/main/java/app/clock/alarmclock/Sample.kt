@@ -202,8 +202,7 @@ class Sample : AppCompatActivity() {
                     AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
 
                 alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
-                Toast.makeText(this, "Ajoyib " + sdf.format(calendar.time), Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, sdf.format(calendar.time), Toast.LENGTH_SHORT).show()
             }
 
         }
