@@ -95,7 +95,7 @@ class Sample : AppCompatActivity() {
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete this time?")
                 .setPositiveButton("Yes") { dialog, which ->
-                    Toast.makeText(this, "Deleted$position", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Deleted"+position, Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("No") { dialog, which ->
                     dialog.dismiss()
@@ -232,6 +232,7 @@ class Sample : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
         val alarmInfoIntent = Intent(this, MainActivity::class.java)
@@ -240,15 +241,16 @@ class Sample : AppCompatActivity() {
             this,
             0,
             alarmInfoIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmActionPendingIntent(): PendingIntent? {
         val intent = Intent(this, AlarmActvity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
 }
