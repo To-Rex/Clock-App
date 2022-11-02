@@ -38,11 +38,6 @@ class Sample : AppCompatActivity() {
     private var progressSample: ProgressBar? = null
     private var floatRefresh: FloatingActionButton? = null
     private var floatAdd: FloatingActionButton? = null
-    var alarmManager: AlarmManager? = null
-
-    var ALARM_REQUEST_CODE = 100
-
-    //var times = array
     var times = JSONArray()
     var switchS = JSONArray()
 
@@ -184,7 +179,7 @@ class Sample : AppCompatActivity() {
         for (i in 0 until times.length()) {
             if (switchS.getString(i) == "true") {
                 val time = times.getString(i)
-                var hour = ""
+                var hour: String?
                 var minute = ""
                 val timeSplit = time.split(":")
                 hour = timeSplit[0]
