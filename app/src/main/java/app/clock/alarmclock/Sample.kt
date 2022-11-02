@@ -197,7 +197,7 @@ class Sample : AppCompatActivity() {
                 if (calendar.timeInMillis < System.currentTimeMillis()) {
                     calendar.add(Calendar.DAY_OF_YEAR, 1)
                 }
-                
+
 
                 Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
 
