@@ -141,7 +141,7 @@ class Sample : AppCompatActivity() {
         val dialog = addDialog.create()
         var comment = ediSamComment.text.toString()
         btnSamAdd.setOnClickListener {
-
+            btnSamAdd.isEnabled = false
             val hour = digitalClock.hour
             val minute = digitalClock.minute
             val time = "$hour:$minute"
@@ -157,15 +157,18 @@ class Sample : AppCompatActivity() {
                     if (response.isSuccessful) {
                         timeList?.clear()
                         dataAdapters?.notifyDataSetChanged()
+                        btnSamAdd.isEnabled = true
                         getAllTimes()
                         dialog.dismiss()
                     } else {
+                        btnSamAdd.isEnabled = true
                         dialog.dismiss()
                         Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
+                    btnSamAdd.isEnabled = true
                 }
             })
         }
