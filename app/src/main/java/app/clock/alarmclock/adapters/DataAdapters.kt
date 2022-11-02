@@ -112,7 +112,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                 })
             }
         }
-        view.setOnClickListener {
+        /*view.setOnClickListener {
             val inflater = LayoutInflater.from(context)
             val views = inflater.inflate(R.layout.edit_item, null)
             val addDialog = AlertDialog.Builder(context as Activity)
@@ -231,7 +231,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             }
 
             dialog.show()
-        }
+        }*/
 //        view.setOnLongClickListener(View.OnLongClickListener {
 //            AlertDialog.Builder(context as Activity)
 //                .setTitle("Diqqat!")
