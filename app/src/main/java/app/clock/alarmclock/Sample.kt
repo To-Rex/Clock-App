@@ -89,6 +89,12 @@ class Sample : AppCompatActivity() {
         floatAdd?.setOnClickListener {
             addTime()
         }
+
+        listSample?.setOnItemLongClickListener {position, view, i, l ->
+            
+            return@setOnItemLongClickListener false
+        }
+
     }
 
     private fun getAllTimes() {
