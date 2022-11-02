@@ -89,22 +89,6 @@ class Sample : AppCompatActivity() {
         floatAdd?.setOnClickListener {
             addTime()
         }
-        listSample?.setOnClickListener {
-            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show()
-        }
-        listSample?.setOnItemLongClickListener {position, view, i, l ->
-            AlertDialog.Builder(this)
-                .setTitle("Delete")
-                .setMessage("Are you sure you want to delete this time?")
-                .setPositiveButton("Yes") { dialog, which ->
-                    Toast.makeText(this, "Deleted"+position, Toast.LENGTH_SHORT).show()
-                }
-                .setNegativeButton("No") { dialog, which ->
-                    dialog.dismiss()
-                }
-                .show()
-            return@setOnItemLongClickListener false
-        }
 
     }
 
