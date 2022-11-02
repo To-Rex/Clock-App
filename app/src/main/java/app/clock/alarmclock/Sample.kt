@@ -226,7 +226,7 @@ class Sample : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
-        val alarmInfoIntent = Intent(this, MainActivity::class.java)
+        val alarmInfoIntent = Intent(this, Sample::class.java)
         alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         return PendingIntent.getActivity(
             this,
