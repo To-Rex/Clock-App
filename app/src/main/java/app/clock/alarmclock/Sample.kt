@@ -91,7 +91,16 @@ class Sample : AppCompatActivity() {
         }
 
         listSample?.setOnItemLongClickListener {position, view, i, l ->
-            
+            AlertDialog.Builder(this)
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete this time?")
+                .setPositiveButton("Yes") { dialog, which ->
+                    
+                }
+                .setNegativeButton("No") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
             return@setOnItemLongClickListener false
         }
 
