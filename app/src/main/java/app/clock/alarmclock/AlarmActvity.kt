@@ -28,4 +28,11 @@ class AlarmActvity : AppCompatActivity() {
         }
         super.onDestroy()
     }
+
+    override fun onBackPressed() {
+        if (ringtone != null && ringtone!!.isPlaying) {
+            ringtone!!.stop()
+        }
+        super.onBackPressed()
+    }
 }
