@@ -187,51 +187,29 @@ class Sample : AppCompatActivity() {
                 var hour = ""
                 var minute = ""
                 val timeSplit = time.split(":")
-                hour = if (timeSplit[0].length == 1) {
-                    "0"+timeSplit[0]
-                } else{
-                    timeSplit[0]
-                }
-                minute = if (timeSplit[1].length == 1) {
-                    "0"+timeSplit[1]
-                }else{
-                    timeSplit[1]
-                }
+                hour = timeSplit[0]
+                minute = timeSplit[1]
                 Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
-                //val hour = timeSplit[0].toInt()
-                //val minute = timeSplit[1].toInt()
                 val calendar = Calendar.getInstance()
                 calendar[Calendar.MINUTE] = minute.toInt()
                 calendar[Calendar.HOUR_OF_DAY] = hour.toInt()
                 Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
+
                 val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-                val alarmClockInfo = AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+                val alarmClockInfo =
+                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
 
                 alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
-                Toast.makeText(this, "Будильник установлен на " + sdf.format(calendar.time), Toast.LENGTH_SHORT).show()
-
-
-//                    val intent = Intent(this, Resiver::class.java)
-//                    val pendingIntent = PendingIntent.getBroadcast(
-//                        this,
-//                        ALARM_REQUEST_CODE,
-//                        intent,
-//                        PendingIntent.FLAG_IMMUTABLE
-//                    )
-//                    alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-//                    alarmManager!!.setRepeating(
-//                        AlarmManager.RTC_WAKEUP,
-//                        System.currentTimeMillis(),
-//                        0,
-//                        pendingIntent
-//                    )
-                }
+                Toast.makeText(this, "Ajoyib " + sdf.format(calendar.time), Toast.LENGTH_SHORT)
+                    .show()
+            }
 
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
-                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")
                 )
                 startActivity(intent)
             }
@@ -243,7 +221,12 @@ class Sample : AppCompatActivity() {
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
         val alarmInfoIntent = Intent(this, MainActivity::class.java)
         alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(this, 0, alarmInfoIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(
+            this,
+            0,
+            alarmInfoIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
