@@ -180,7 +180,7 @@ class Sample : AppCompatActivity() {
             if (switchS.getString(i) == "true") {
                 val time = times.getString(i)
                 var hour: String?
-                var minute = String?
+                var minute = ""
                 val timeSplit = time.split(":")
                 hour = timeSplit[0]
                 minute = timeSplit[1]
