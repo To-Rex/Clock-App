@@ -150,7 +150,8 @@ class Sample : AppCompatActivity() {
                 comment = "No Comment"
             }
 
-            onTimeSet(digitalClock, hour, minute)
+            onTimeSet(hour, minute)
+            dialog.dismiss()
 
             /*val addTime: Call<Any?>? =
                 ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "false"))
@@ -240,7 +241,7 @@ class Sample : AppCompatActivity() {
         return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+    private fun onTimeSet(hourOfDay: Int, minute: Int) {
         val time = "$hourOfDay:$minute"
         val addTime: Call<Any?>? =
             ApiCleint().userService.addtime("Bearer $token", GetTimes(time, "No Comment", "false"))
