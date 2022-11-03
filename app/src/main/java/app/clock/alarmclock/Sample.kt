@@ -150,7 +150,9 @@ class Sample : AppCompatActivity() {
                 comment = "No Comment"
             }
 
-            val addTime: Call<Any?>? =
+            onTimeSet(digitalClock, hour, minute)
+
+            /*val addTime: Call<Any?>? =
                 ApiCleint().userService.addtime("Bearer $token", GetTimes(time, comment, "false"))
             addTime?.enqueue(object : retrofit2.Callback<Any?> {
                 override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
@@ -167,7 +169,7 @@ class Sample : AppCompatActivity() {
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                 }
-            })
+            })*/
         }
 
         dialog.show()
