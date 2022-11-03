@@ -149,7 +149,7 @@ class Sample : AppCompatActivity() {
                 comment = "No Comment"
             }
 
-            onTimeSet(hour, minute)
+            onTimeSet(hour, minute, comment)
             dialog.dismiss()
 
             /*val addTime: Call<Any?>? =
@@ -240,10 +240,10 @@ class Sample : AppCompatActivity() {
         return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    private fun onTimeSet(hourOfDay: Int, minute: Int) {
+    private fun onTimeSet(hourOfDay: Int, minute: Int,coment:String) {
         val time = "$hourOfDay:$minute"
         val addTime: Call<Any?>? =
-            ApiCleint().userService.addtime("Bearer $token", GetTimes(time, "No Comment", "false"))
+            ApiCleint().userService.addtime("Bearer $token", GetTimes(time, coment, "false"))
         addTime?.enqueue(object : retrofit2.Callback<Any?> {
             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                 if (response.isSuccessful) {
