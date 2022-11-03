@@ -251,7 +251,7 @@ class Sample : AppCompatActivity() {
                     dataAdapters?.notifyDataSetChanged()
                     getAllTimes()
                 } else {
-                    Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Sample, "Xatolik yuz berdi", Toast.LENGTH_SHORT).show()
                 }
             }
 
