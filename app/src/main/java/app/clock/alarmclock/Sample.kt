@@ -143,7 +143,6 @@ class Sample : AppCompatActivity() {
 
             val hour = digitalClock.hour
             val minute = digitalClock.minute
-            val time = "$hour:$minute"
             var comment = ediSamComment.text.toString()
 
             if (comment.isEmpty()) {
