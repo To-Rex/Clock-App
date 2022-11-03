@@ -232,7 +232,7 @@ class Sample : AppCompatActivity() {
             this,
             0,
             alarmInfoIntent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
@@ -241,7 +241,7 @@ class Sample : AppCompatActivity() {
     private fun getAlarmActionPendingIntent(): PendingIntent? {
         val intent = Intent(this, AlarmActvity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
+        return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
 }
