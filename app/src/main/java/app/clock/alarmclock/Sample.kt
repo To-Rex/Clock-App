@@ -238,4 +238,24 @@ class Sample : AppCompatActivity() {
         return PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
+    fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val time = "$hourOfDay:$minute"
+        val addTime: Call<Any?>? =
+            ApiCleint().userService.addtime("Bearer $token", GetTimes(time, "No Comment", "false"))
+        addTime?.enqueue(object : retrofit2.Callback<Any?> {
+            override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
+                if (response.isSuccessful) {
+                    timeList?.clear()
+                    dataAdapters?.notifyDataSetChanged()
+                    getAllTimes()
+                } else {
+                    Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Any?>, t: Throwable) {
+            }
+        })
+    }
+
 }
