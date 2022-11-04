@@ -2,7 +2,9 @@ package app.clock.alarmclock.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -12,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import app.clock.alarmclock.AlarmActvity
+import app.clock.alarmclock.MainActivity
 import app.clock.alarmclock.R
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
@@ -69,15 +73,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             val time = timeList?.get(position)?.times
             //if time current is equal time in list then play ringtone in any case
             if (time == getCurrentTime()) {
-                var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                ringtone = RingtoneManager.getRingtone(context, notificationUri)
-                if (ringtone == null) {
-                    notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-                    ringtone = RingtoneManager.getRingtone(context, notificationUri)
-                }
-                if (ringtone != null) {
-                    ringtone!!.play()
-                }
+                
             }
         }
 
@@ -296,5 +292,24 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         val timeOfDay = c[Calendar.HOUR_OF_DAY]
         val minute = c[Calendar.MINUTE]
         return "$timeOfDay:$minute"
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmInfoPendingIntent(): PendingIntent? {
+        val alarmInfoIntent = Intent(context, MainActivity::class.java)
+        alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return PendingIntent.getActivity(
+            context,
+            0,
+            alarmInfoIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmActionPendingIntent(): PendingIntent? {
+        val intent = Intent(context, AlarmActvity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }
