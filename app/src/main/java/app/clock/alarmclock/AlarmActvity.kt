@@ -11,7 +11,7 @@ class AlarmActvity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm_actvity)
 
-        var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         ringtone = RingtoneManager.getRingtone(this, notificationUri)
         if (ringtone == null) {
             notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
