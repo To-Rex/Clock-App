@@ -3,13 +3,17 @@ package app.clock.alarmclock
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 class AlarmActvity : AppCompatActivity() {
     var ringtone: Ringtone? = null
+    var viewStop: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm_actvity)
+
+        viewStop = findViewById(R.id.viewStop)
 
         var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         ringtone = RingtoneManager.getRingtone(this, notificationUri)
@@ -19,6 +23,13 @@ class AlarmActvity : AppCompatActivity() {
         }
         if (ringtone != null) {
             ringtone!!.play()
+        }
+
+        viewStop!!.setOnClickListener {
+            if (ringtone != null) {
+                ringtone!!.stop()
+            }
+            finish()
         }
 
     }
