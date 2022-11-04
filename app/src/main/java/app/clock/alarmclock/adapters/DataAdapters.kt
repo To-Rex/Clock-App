@@ -66,14 +66,18 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         switchItem.isChecked = timeList?.get(position)?.switchs == "true"
 
         if (switchItem.isChecked) {
-            var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            ringtone = RingtoneManager.getRingtone(context, notificationUri)
-            if (ringtone == null) {
-                notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+            val time = timeList?.get(position)?.times
+            //if time current is equal time in list then play ringtone in any case
+            if (time == getCurrentTime()) {
+                var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
                 ringtone = RingtoneManager.getRingtone(context, notificationUri)
-            }
-            if (ringtone != null) {
-                ringtone!!.play()
+                if (ringtone == null) {
+                    notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                    ringtone = RingtoneManager.getRingtone(context, notificationUri)
+                }
+                if (ringtone != null) {
+                    ringtone!!.play()
+                }
             }
         }
 
@@ -285,5 +289,12 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         })
 
         return view
+    }
+
+    private fun getCurrentTime(): Any? {
+        val c = Calendar.getInstance()
+        val timeOfDay = c[Calendar.HOUR_OF_DAY]
+        val minute = c[Calendar.MINUTE]
+        return "$timeOfDay:$minute"
     }
 }
