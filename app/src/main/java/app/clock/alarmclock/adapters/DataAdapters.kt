@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +16,16 @@ import app.clock.alarmclock.R
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
 import retrofit2.Call
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapter() {
 
     private var context: Context? = null
     private var timeList: ArrayList<GetTimes>? = null
     private var sharedPreferences: SharedPreferences? = null
+    private var ringtone: Ringtone? = null
 
     init {
         this.context = context
@@ -59,7 +65,17 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         txtComents.text = timeList?.get(position)?.coments
         switchItem.isChecked = timeList?.get(position)?.switchs == "true"
 
-        
+        if (switchItem.isChecked) {
+            var notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            ringtone = RingtoneManager.getRingtone(context, notificationUri)
+            if (ringtone == null) {
+                notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                ringtone = RingtoneManager.getRingtone(context, notificationUri)
+            }
+            if (ringtone != null) {
+                ringtone!!.play()
+            }
+        }
 
         switchItem.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
