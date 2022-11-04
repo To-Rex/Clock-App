@@ -149,7 +149,6 @@ class Sample : AppCompatActivity() {
             if (comment.isEmpty()) {
                 comment = "No Comment"
             }
-
             onTimeSet(hour, minute, comment)
             dialog.dismiss()
         }
@@ -157,49 +156,47 @@ class Sample : AppCompatActivity() {
         dialog.show()
     }
 
-    @SuppressLint("ShortAlarm")
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun startAlarm() {
-        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-        for (i in 0 until times.length()) {
-            if (switchS.getString(i) == "true") {
-                val time = times.getString(i)
-                var hour: String?
-                var minute: String?
-                val timeSplit = time.split(":")
-                hour = timeSplit[0]
-                minute = timeSplit[1]
-                Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
-                val calendar = Calendar.getInstance()
-                calendar[Calendar.MINUTE] = minute.toInt()
-                calendar[Calendar.HOUR_OF_DAY] = hour.toInt()
-
-                if (calendar.timeInMillis < System.currentTimeMillis()) {
-                    calendar.add(Calendar.DAY_OF_YEAR, 1)
-                }
-
-
-                Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
-
-                val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
-                val alarmClockInfo =
-                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
-
-                alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
-                Toast.makeText(this, "Ajoyib " + sdf.format(calendar.time), Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")
-                )
-                startActivity(intent)
-            }
-        }
+//    @SuppressLint("ShortAlarm")
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    private fun startAlarm() {
+//        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+//        for (i in 0 until times.length()) {
+//            if (switchS.getString(i) == "true") {
+//                val time = times.getString(i)
+//                var hour: String?
+//                var minute: String?
+//                val timeSplit = time.split(":")
+//                hour = timeSplit[0]
+//                minute = timeSplit[1]
+//                Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
+//                val calendar = Calendar.getInstance()
+//                calendar[Calendar.MINUTE] = minute.toInt()
+//                calendar[Calendar.HOUR_OF_DAY] = hour.toInt()
+//
+//                if (calendar.timeInMillis < System.currentTimeMillis()) {
+//                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+//                }
+//                Toast.makeText(this, "$hour:$minute", Toast.LENGTH_SHORT).show()
+//
+//                val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+//
+//                val alarmClockInfo =
+//                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+//
+//                alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
+//                Toast.makeText(this, "Ajoyib " + sdf.format(calendar.time), Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (!Settings.canDrawOverlays(this)) {
+//                val intent = Intent(
+//                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")
+//                )
+//                startActivity(intent)
+//            }
+//        }
 
     }
 
