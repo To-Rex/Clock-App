@@ -11,6 +11,7 @@ class AlarmActvity : AppCompatActivity() {
     var viewStop: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_alarm_actvity)
 
         viewStop = findViewById(R.id.viewStop)
