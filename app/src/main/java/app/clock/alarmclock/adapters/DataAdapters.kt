@@ -2,12 +2,16 @@ package app.clock.alarmclock.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.Ringtone
 import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,12 +75,37 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
 
         if (switchItem.isChecked) {
             val time = timeList?.get(position)?.times
-            //if time current is equal time in list then play ringtone in any case
-            if (time == getCurrentTime()) {
-                val hour = time?.split(":")?.get(0)
-                val minute = time?.split(":")?.get(1)
+            val hour = time?.split(":")?.get(0)
+            val minute = time?.split(":")?.get(1)
 
-                
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, hour?.toInt()!!)
+            calendar.set(Calendar.MINUTE, minute?.toInt()!!)
+            if (calendar.timeInMillis < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+            }
+
+            val alarmManager = context?.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+
+            val alarmClockInfo =
+                AlarmManager.AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+            alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")
+                    )
+                    startActivity(intent)
+                }
+            }*/
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(context)) {
+                    val intent = Intent(
+                        //settings action to draw over other apps permission for API 23+
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                    )
+                    (context as Activity).startActivity(intent)
+                }
             }
         }
 
