@@ -9,7 +9,7 @@
 
 
     <View
-        android:id="@+id/view4"
+        android:id="@+id/viewStop"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:background="@drawable/shape_view"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/to_xta"
         android:textSize="48sp"
-        
+
         android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
