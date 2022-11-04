@@ -52,15 +52,7 @@ class Sample : AppCompatActivity() {
         imgSampleSet = findViewById(R.id.imgSamleSet)
         floatRefresh = findViewById(R.id.floatRefresh)
         floatAdd = findViewById(R.id.floatAdd)
-
-
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            val intent = Intent(this, Resiver::class.java)
-//            val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE)
-//            alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-//            alarmManager!!.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 0, pendingIntent)
-//
-//        }, 3000)
+        
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
 
@@ -155,7 +147,7 @@ class Sample : AppCompatActivity() {
 
         dialog.show()
     }
-    
+
     private fun onTimeSet(hourOfDay: Int, minute: Int,coment:String) {
         val time = "$hourOfDay:$minute"
         val addTime: Call<Any?>? =
