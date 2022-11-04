@@ -73,6 +73,9 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             val time = timeList?.get(position)?.times
             //if time current is equal time in list then play ringtone in any case
             if (time == getCurrentTime()) {
+                val hour = time?.split(":")?.get(0)
+                val minute = time?.split(":")?.get(1)
+
                 
             }
         }
