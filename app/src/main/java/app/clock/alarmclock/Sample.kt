@@ -159,10 +159,12 @@ class Sample : AppCompatActivity() {
                     }
                 }
                 if (check) {
+                    Toast.makeText(this, "11111111", Toast.LENGTH_SHORT).show()
                     Handler(Looper.getMainLooper()).postDelayed({
                         addAlarm()
                     }, 60000)
                 }else{
+                    Toast.makeText(this, "222222222", Toast.LENGTH_SHORT).show()
                     Handler(Looper.getMainLooper()).postDelayed({
                         addAlarm()
                     }, 13000)
