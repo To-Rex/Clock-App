@@ -40,6 +40,7 @@ class Sample : AppCompatActivity() {
     private var floatAdd: FloatingActionButton? = null
     var times = JSONArray()
     var switchS = JSONArray()
+    var comments = JSONArray()
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +101,7 @@ class Sample : AppCompatActivity() {
                             return
                         }
                         switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
-                        val comments = jsonObject.getJSONArray(getString(R.string.comment))
+                        comments = jsonObject.getJSONArray(getString(R.string.comment))
 
                         for (i in 0 until times.length()) {
                             val time = times.getString(i)
@@ -120,7 +121,24 @@ class Sample : AppCompatActivity() {
         })
     }
     private fun addAlarm(){
-        
+        for (i in 0 until times.length()){
+            val time = times.getString(i)
+            val switchBox = switchS.getString(i)
+            val coMntS = comments.getString(i)
+            val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+            val intent = Intent(this, AlarmActvity::class.java)
+            intent.putExtra("time", time)
+            intent.putExtra("comment", coMntS)
+            val pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0)
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.set(Calendar.HOUR_OF_DAY, time.substring(0, 2).toInt())
+            calendar.set(Calendar.MINUTE, time.substring(3, 5).toInt())
+            calendar.set(Calendar.SECOND, 0)
+            if (switchBox == "true"){
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            }
+        }
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
