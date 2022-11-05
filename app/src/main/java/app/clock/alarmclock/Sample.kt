@@ -43,6 +43,7 @@ class Sample : AppCompatActivity() {
     var times = JSONArray()
     var switchS = JSONArray()
     var comments = JSONArray()
+    var check = false
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,12 +149,6 @@ class Sample : AppCompatActivity() {
                         )
                         startActivity(intent)
 
-                        val getTimes = GetTimes(
-                            times.getString(i),
-                            comments.getString(i),
-                            "false"
-                        )
-                        
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
