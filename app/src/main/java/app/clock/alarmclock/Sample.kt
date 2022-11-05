@@ -52,7 +52,7 @@ class Sample : AppCompatActivity() {
         imgSampleSet = findViewById(R.id.imgSamleSet)
         floatRefresh = findViewById(R.id.floatRefresh)
         floatAdd = findViewById(R.id.floatAdd)
-        
+
         sharedPreferences = getSharedPreferences("app.clock.alarmClock", MODE_PRIVATE)
         token = sharedPreferences?.getString("token", "")!!
 
@@ -98,6 +98,9 @@ class Sample : AppCompatActivity() {
                         times = jsonObject.getJSONArray(getString(R.string.time))
                         switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
                         val comments = jsonObject.getJSONArray(getString(R.string.comment))
+                       if(times.length() == 0){
+                           Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
+                       }
                         for (i in 0 until times.length()) {
                             val time = times.getString(i)
                             val switchBox = switchS.getString(i)
@@ -105,7 +108,6 @@ class Sample : AppCompatActivity() {
                             timeList?.add(GetTimes(time, coMntS, switchBox))
                             dataAdapters?.notifyDataSetChanged()
                         }
-                        dataAdapters?.notifyDataSetChanged()
                     }
                 } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
