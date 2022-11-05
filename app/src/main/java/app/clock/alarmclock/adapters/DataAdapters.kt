@@ -296,7 +296,26 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     }
 
     private fun setAlarm(context: Activity, toInt: Int, toInt1: Int, position: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, toInt)
+        calendar.set(Calendar.MINUTE, toInt1)
+        if (calendar.timeInMillis < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1)
+        }
 
+        val alarmManager = context?.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+
+        val alarmClockInfo =
+            AlarmManager.AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+        alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(context)) {
+                val intent = Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                )
+                (context as Activity).startActivity(intent)
+            }
+        }
     }
 
 
