@@ -33,6 +33,11 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     private var context: Context? = null
     private var timeList: ArrayList<GetTimes>? = null
     private var sharedPreferences: SharedPreferences? = null
+
+    var txtTime: TextView? = null
+    var txtComents: TextView? = null
+    var switchItem: Switch? = null
+
     init {
         this.context = context
         this.timeList = timeList
@@ -58,20 +63,20 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     )
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = (context as Activity).layoutInflater.inflate(R.layout.times_list, null)
-        val txtTime = view.findViewById<TextView>(R.id.txtTimes)
-        val txtComents = view.findViewById<View>(R.id.txtComent) as TextView
-        val switchItem = view.findViewById<View>(R.id.switchItem) as Switch
+        txtTime = view.findViewById(R.id.txtTimes)
+        txtComents = view.findViewById(R.id.txtComent)
+        switchItem = view.findViewById(R.id.switchItem)
         sharedPreferences = (context as Activity).getSharedPreferences(
             "app.clock.alarmClock",
             AppCompatActivity.MODE_PRIVATE
         )
         val token = sharedPreferences?.getString("token", "")!!
 
-        txtTime.text = timeList?.get(position)?.times
-        txtComents.text = timeList?.get(position)?.coments
-        switchItem.isChecked = timeList?.get(position)?.switchs == "true"
+        txtTime?.text = timeList?.get(position)?.times
+        txtComents?.text = timeList?.get(position)?.coments
+        switchItem?.isChecked = timeList?.get(position)?.switchs == "true"
 
-        if (switchItem.isChecked) {
+        if (switchItem?.isChecked!!) {
             val time = timeList?.get(position)?.times
             val hour = time?.split(":")?.get(0)
             val minute = time?.split(":")?.get(1)
@@ -98,7 +103,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             }
         }
 
-        switchItem.setOnCheckedChangeListener { _, isChecked ->
+        switchItem!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 val getTimes = GetTimes(
                     timeList?.get(position)?.times!!,
