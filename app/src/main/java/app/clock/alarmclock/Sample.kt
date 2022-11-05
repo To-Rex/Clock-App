@@ -147,8 +147,8 @@ class Sample : AppCompatActivity() {
                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
                         )
                         startActivity(intent)
-
-                        val getTimes = GetTimes(
+                        finish()
+                        /*val getTimes = GetTimes(
                             times.getString(i),
                             comments.getString(i),
                             "false"
@@ -171,7 +171,7 @@ class Sample : AppCompatActivity() {
                             override fun onFailure(call: Call<Any?>, t: Throwable) {
                                 Toast.makeText(this@Sample, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
                             }
-                        })
+                        })*/
 
                     }
                 }
