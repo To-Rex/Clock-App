@@ -228,7 +228,6 @@ class Sample : AppCompatActivity() {
                     Toast.makeText(this@Sample, "Xatolik yuz berdi", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<Any?>, t: Throwable) {
             }
         })
