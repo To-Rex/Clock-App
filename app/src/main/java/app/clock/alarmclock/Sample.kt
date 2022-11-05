@@ -88,28 +88,28 @@ class Sample : AppCompatActivity() {
             @SuppressLint("NewApi")
             override fun onResponse(call: Call<Any?>, response: retrofit2.Response<Any?>) {
                 if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        listSample?.visibility = View.VISIBLE
-                        progressSample?.visibility = View.GONE
-                        val gson = Gson()
-                        val json = gson.toJson(response.body())
-                        val jsonObject = JSONObject(json)
-                        times = jsonObject.getJSONArray(getString(R.string.time)) !!.getJSONArray(0)
-                        if (times[0].toString().isEmpty()){
-                            Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
-                            return
-                        }
-                        switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
-                        val comments = jsonObject.getJSONArray(getString(R.string.comment))
-
-                        for (i in 0 until times.length()) {
-                            val time = times.getString(i)
-                            val switchBox = switchS.getString(i)
-                            val coMntS = comments.getString(i)
-                            timeList?.add(GetTimes(time, coMntS, switchBox))
-                            dataAdapters?.notifyDataSetChanged()
-                        }
-                    }
+//                    if (response.body() != null) {
+//                        listSample?.visibility = View.VISIBLE
+//                        progressSample?.visibility = View.GONE
+//                        val gson = Gson()
+//                        val json = gson.toJson(response.body())
+//                        val jsonObject = JSONObject(json)
+//                        times = jsonObject.getJSONArray(getString(R.string.time)) !!.getJSONArray(0)
+//                        if (times[0].toString().isEmpty()){
+//                            Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
+//                            return
+//                        }
+//                        switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
+//                        val comments = jsonObject.getJSONArray(getString(R.string.comment))
+//
+//                        for (i in 0 until times.length()) {
+//                            val time = times.getString(i)
+//                            val switchBox = switchS.getString(i)
+//                            val coMntS = comments.getString(i)
+//                            timeList?.add(GetTimes(time, coMntS, switchBox))
+//                            dataAdapters?.notifyDataSetChanged()
+//                        }
+//                    }
                 } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
                 }
