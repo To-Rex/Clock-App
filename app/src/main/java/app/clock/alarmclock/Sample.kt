@@ -177,7 +177,7 @@ class Sample : AppCompatActivity() {
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
                     addAlarm()
-                }, 900)
+                }, 3000)
             }
         }
     }
