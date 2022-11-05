@@ -74,7 +74,6 @@ class Sample : AppCompatActivity() {
             getAllTimes()
         }
         floatRefresh?.setOnLongClickListener {
-
             Toast.makeText(this, "Refresh", Toast.LENGTH_SHORT).show()
             true
         }
@@ -95,15 +94,13 @@ class Sample : AppCompatActivity() {
                         val gson = Gson()
                         val json = gson.toJson(response.body())
                         val jsonObject = JSONObject(json)
-                        times = jsonObject.getJSONArray(getString(R.string.time))
-                        switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
-                        val comments = jsonObject.getJSONArray(getString(R.string.comment))
-
-                        if (times.get(0).toString().isEmpty()){
+                        times = jsonObject.getJSONArray(getString(R.string.time)) !!.getJSONArray(0)
+                        if (times[0].toString().isEmpty()){
                             Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
-                            
                             return
                         }
+                        switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
+                        val comments = jsonObject.getJSONArray(getString(R.string.comment))
 
                         for (i in 0 until times.length()) {
                             val time = times.getString(i)
