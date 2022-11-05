@@ -150,7 +150,7 @@ class Sample : AppCompatActivity() {
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
-                    addTime()
+                    addAlarm()
                 }, 900)
             }
         }
