@@ -167,6 +167,16 @@ class Sample : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                addAlarm()
+            }
+        }, 10000)
+        super.onStop()
+    }
+
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
         val alarmInfoIntent = Intent(this, MainActivity::class.java)
