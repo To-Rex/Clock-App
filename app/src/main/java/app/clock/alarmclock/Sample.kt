@@ -98,9 +98,13 @@ class Sample : AppCompatActivity() {
                         times = jsonObject.getJSONArray(getString(R.string.time))
                         switchS = jsonObject.getJSONArray(getString(R.string.switchCheck))
                         val comments = jsonObject.getJSONArray(getString(R.string.comment))
-                       if(times.length() == 0){
-                           Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
-                       }
+
+                        if (times.get(0).toString().isEmpty()){
+                            Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
+                            
+                            return
+                        }
+
                         for (i in 0 until times.length()) {
                             val time = times.getString(i)
                             val switchBox = switchS.getString(i)
