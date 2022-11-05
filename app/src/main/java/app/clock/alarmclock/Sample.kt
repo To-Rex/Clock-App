@@ -156,9 +156,13 @@ class Sample : AppCompatActivity() {
                         }
                     }
                 }
-                Handler(Looper.getMainLooper()).postDelayed({
-                    addAlarm()
-                }, 13000)
+                //timeout 10 seconds to check if the time is equal to the current time
+                val timer = Timer()
+                timer.schedule(object : TimerTask() {
+                    override fun run() {
+                        addAlarm()
+                    }
+                }, 10000)
             }
         }
     }
