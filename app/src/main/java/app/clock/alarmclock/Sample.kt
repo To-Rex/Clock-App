@@ -122,21 +122,23 @@ class Sample : AppCompatActivity() {
     }
     private fun addAlarm(){
         for (i in 0 until times.length()){
-            val time = times.getString(i)
-            val switchBox = switchS.getString(i)
-            val coMntS = comments.getString(i)
-            val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-            val intent = Intent(this, AlarmActvity::class.java)
-            intent.putExtra("time", time)
-            intent.putExtra("comment", coMntS)
-            val pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0)
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = System.currentTimeMillis()
-            calendar.set(Calendar.HOUR_OF_DAY, time.substring(0, 2).toInt())
-            calendar.set(Calendar.MINUTE, time.substring(3, 5).toInt())
-            calendar.set(Calendar.SECOND, 0)
-            if (switchBox == "true"){
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            if (switchS.getString(i) == "true"){
+                val time = times.getString(i)
+                val comment = comments.getString(i)
+                val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+                val date = sdf.parse(time)
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+                val intent = Intent(this, AlarmActvity::class.java)
+                intent.putExtra("comment", comment)
+                val pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+                } else
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
             }
         }
     }
