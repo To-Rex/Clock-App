@@ -311,29 +311,30 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         return view
     }
 
-    private fun getCurrentTime(): Any? {
-        val c = Calendar.getInstance()
-        val timeOfDay = c[Calendar.HOUR_OF_DAY]
-        val minute = c[Calendar.MINUTE]
-        return "$timeOfDay:$minute"
-    }
-
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
         val alarmInfoIntent = Intent(context, MainActivity::class.java)
         alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(
-            context,
-            0,
-            alarmInfoIntent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                context,
+                0,
+                alarmInfoIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmActionPendingIntent(): PendingIntent? {
         val intent = Intent(context, AlarmActvity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_IMMUTABLE)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
     }
 }
