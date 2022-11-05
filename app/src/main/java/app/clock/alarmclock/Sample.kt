@@ -148,31 +148,6 @@ class Sample : AppCompatActivity() {
                         )
                         startActivity(intent)
                         finish()
-                        /*val getTimes = GetTimes(
-                            times.getString(i),
-                            comments.getString(i),
-                            "false"
-                        )
-                        val updateTimeResponse: Call<Any?>? =
-                            ApiCleint().userService.updateTime(i, "Bearer $token", getTimes)
-                        updateTimeResponse?.enqueue(object : retrofit2.Callback<Any?> {
-                            override fun onResponse(
-                                call: Call<Any?>,
-                                response: retrofit2.Response<Any?>
-                            ) {
-                                if (response.isSuccessful) {
-                                    Toast.makeText(this@Sample, "budilnik o'chirildi", Toast.LENGTH_SHORT)
-                                        .show()
-                                } else {
-                                    Toast.makeText(this@Sample, "Xatolik", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-
-                            override fun onFailure(call: Call<Any?>, t: Throwable) {
-                                Toast.makeText(this@Sample, "Nimadur Xato ketdi", Toast.LENGTH_SHORT).show()
-                            }
-                        })*/
-
                     }
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
