@@ -74,7 +74,32 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         txtComents?.text = timeList?.get(position)?.coments
         switchItem?.isChecked = timeList?.get(position)?.switchs == "true"
 
+        if (switchItem?.isChecked!!) {
+            val time = timeList?.get(position)?.times
+            val hour = time?.split(":")?.get(0)
+            val minute = time?.split(":")?.get(1)
 
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, hour?.toInt()!!)
+            calendar.set(Calendar.MINUTE, minute?.toInt()!!)
+            if (calendar.timeInMillis < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+            }
+
+            val alarmManager = context?.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
+
+            val alarmClockInfo =
+                AlarmManager.AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+            alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(context)) {
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                    )
+                    (context as Activity).startActivity(intent)
+                }
+            }
+        }
 
         switchItem!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -283,41 +308,8 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             return@OnLongClickListener true
         })
 
-        if (switchItem?.isChecked!!) {
-            val time = timeList?.get(position)?.times
-            val hour = time?.split(":")?.get(0)
-            val minute = time?.split(":")?.get(1)
-
-            setAlarm(context as Activity, hour?.toInt()!!, minute?.toInt()!!, position)
-
-        }
-
         return view
     }
-
-    private fun setAlarm(context: Activity, toInt: Int, toInt1: Int, position: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, toInt)
-        calendar.set(Calendar.MINUTE, toInt1)
-        if (calendar.timeInMillis < System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1)
-        }
-
-        val alarmManager = context?.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-
-        val alarmClockInfo =
-            AlarmManager.AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
-        alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(context)) {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
-                )
-                (context as Activity).startActivity(intent)
-            }
-        }
-    }
-
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
