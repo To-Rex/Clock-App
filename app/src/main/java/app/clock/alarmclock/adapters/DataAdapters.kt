@@ -326,7 +326,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             context,
             0,
             alarmInfoIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -334,6 +334,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     private fun getAlarmActionPendingIntent(): PendingIntent? {
         val intent = Intent(context, AlarmActvity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 }
