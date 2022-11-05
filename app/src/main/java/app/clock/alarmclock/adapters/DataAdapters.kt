@@ -33,8 +33,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     private var context: Context? = null
     private var timeList: ArrayList<GetTimes>? = null
     private var sharedPreferences: SharedPreferences? = null
-    private var ringtone: Ringtone? = null
-
     init {
         this.context = context
         this.timeList = timeList
