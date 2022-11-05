@@ -51,7 +51,6 @@ class Sample : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_sample)
-        currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
 
         listSample = findViewById(R.id.listSample)
         progressSample = findViewById(R.id.progressSampe)
@@ -101,7 +100,7 @@ class Sample : AppCompatActivity() {
                         val json = gson.toJson(response.body())
                         val jsonObject = JSONObject(json)
                         times = jsonObject.getJSONArray(getString(R.string.time))
-                        if (times[0].toString().isEmpty()){
+                        if (times[0].toString().isEmpty()) {
                             Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
                             return
                         }
@@ -127,11 +126,13 @@ class Sample : AppCompatActivity() {
             }
         })
     }
-    private fun addAlarm(){
+
+    private fun addAlarm() {
         val calendar = Calendar.getInstance()
-        for (i in 0 until times.length()){
-            if (switchS.getString(i) == "true"){
-                if (currentTime == times.getString(i)){
+        for (i in 0 until times.length()) {
+            if (switchS.getString(i) == "true") {
+                Toast.makeText(this, currentTime, Toast.LENGTH_SHORT).show()
+                if (currentTime == times.getString(i)) {
                     val hour = times.getString(i).split(":")[0].toInt()
                     val minute = times.getString(i).split(":")[1].toInt()
 
@@ -149,7 +150,8 @@ class Sample : AppCompatActivity() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (!Settings.canDrawOverlays(this)) {
                             val intent = Intent(
-                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:$parent")
                             )
                             startActivity(intent)
                         }
@@ -157,8 +159,7 @@ class Sample : AppCompatActivity() {
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-                    addAlarm()
+                     addAlarm()
                 }, 3000)
             }
         }
@@ -222,7 +223,7 @@ class Sample : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun onTimeSet(hourOfDay: Int, minute: Int,coment:String) {
+    private fun onTimeSet(hourOfDay: Int, minute: Int, coment: String) {
         val time = "$hourOfDay:$minute"
         val addTime: Call<Any?>? =
             ApiCleint().userService.addtime("Bearer $token", GetTimes(time, coment, "false"))
@@ -236,6 +237,7 @@ class Sample : AppCompatActivity() {
                     Toast.makeText(this@Sample, "Xatolik yuz berdi", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onFailure(call: Call<Any?>, t: Throwable) {
             }
         })
