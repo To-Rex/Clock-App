@@ -119,7 +119,9 @@ class Sample : AppCompatActivity() {
             }
         })
     }
-
+    private fun addAlarm(){
+        
+    }
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
