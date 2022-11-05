@@ -94,7 +94,7 @@ class Sample : AppCompatActivity() {
                         val gson = Gson()
                         val json = gson.toJson(response.body())
                         val jsonObject = JSONObject(json)
-                        times = jsonObject.getJSONArray(getString(R.string.time)) !!.getJSONArray(0)
+                        times = jsonObject.getJSONArray(getString(R.string.time))
                         if (times[0].toString().isEmpty()){
                             Toast.makeText(this@Sample, "No Times", Toast.LENGTH_SHORT).show()
                             return
