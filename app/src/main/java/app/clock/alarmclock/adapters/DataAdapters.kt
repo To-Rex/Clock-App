@@ -7,8 +7,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.media.Ringtone
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -24,7 +22,6 @@ import app.clock.alarmclock.R
 import app.clock.alarmclock.cleint.ApiCleint
 import app.clock.alarmclock.models.GetTimes
 import retrofit2.Call
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,9 +31,10 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     private var timeList: ArrayList<GetTimes>? = null
     private var sharedPreferences: SharedPreferences? = null
 
-    var txtTime: TextView? = null
-    var txtComents: TextView? = null
-    var switchItem: Switch? = null
+    private var txtTime: TextView? = null
+    private var txtComents: TextView? = null
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private var switchItem: Switch? = null
 
     init {
         this.context = context
