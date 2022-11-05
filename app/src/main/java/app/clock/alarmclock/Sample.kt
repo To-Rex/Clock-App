@@ -122,24 +122,31 @@ class Sample : AppCompatActivity() {
         })
     }
     private fun addAlarm(){
+        val calendar = Calendar.getInstance()
         for (i in 0 until times.length()){
             if (switchS.getString(i) == "true"){
-                val time = times.getString(i)
-                val comment = comments.getString(i)
-                val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-                val date = sdf.parse(time)
-                val calendar = Calendar.getInstance()
-                calendar.time = date
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MILLISECOND, 0)
+                val hour = times.getString(i).split(":")[0].toInt()
+                val minute = times.getString(i).split(":")[1].toInt()
+
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
+                if (calendar.timeInMillis < System.currentTimeMillis()) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+                }
+
                 val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-                val intent = Intent(this, AlarmActvity::class.java)
-                intent.putExtra("comment", comment)
-                val pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0)
+
+                val alarmClockInfo =
+                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+                alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                } else
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+                    if (!Settings.canDrawOverlays(this)) {
+                        val intent = Intent(
+                            Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                        )
+                        startActivity(intent)
+                    }
+                }
             }
         }
     }
