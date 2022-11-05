@@ -153,8 +153,8 @@ class Sample : AppCompatActivity() {
                                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                 Uri.parse("package:$parent")
                             )
-                            startActivity(intent)
                             check = true
+                            startActivity(intent)
                         }
                     }
                 }
@@ -165,7 +165,7 @@ class Sample : AppCompatActivity() {
                 }else{
                     Handler(Looper.getMainLooper()).postDelayed({
                         addAlarm()
-                    }, 3000)
+                    }, 13000)
                 }
 
             }
