@@ -110,6 +110,7 @@ class Sample : AppCompatActivity() {
                             timeList?.add(GetTimes(time, coMntS, switchBox))
                             dataAdapters?.notifyDataSetChanged()
                         }
+                        addAlarm()
                     }
                 } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()

@@ -74,7 +74,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
         txtComents?.text = timeList?.get(position)?.coments
         switchItem?.isChecked = timeList?.get(position)?.switchs == "true"
 
-        if (switchItem?.isChecked!!) {
+        /*if (switchItem?.isChecked!!) {
             val time = timeList?.get(position)?.times
             val hour = time?.split(":")?.get(0)
             val minute = time?.split(":")?.get(1)
@@ -99,7 +99,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
                     (context as Activity).startActivity(intent)
                 }
             }
-        }
+        }*/
 
         switchItem!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
