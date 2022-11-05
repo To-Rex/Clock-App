@@ -44,6 +44,7 @@ class Sample : AppCompatActivity() {
     var switchS = JSONArray()
     var comments = JSONArray()
     var check = false
+    var currentTime = ""
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +115,7 @@ class Sample : AppCompatActivity() {
                             dataAdapters?.notifyDataSetChanged()
                         }
                         addAlarm()
+                        //get current time
                     }
                 } else {
                     Toast.makeText(this@Sample, "Error", Toast.LENGTH_SHORT).show()
@@ -127,32 +129,34 @@ class Sample : AppCompatActivity() {
     private fun addAlarm(){
         val calendar = Calendar.getInstance()
         for (i in 0 until times.length()){
+            currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             if (switchS.getString(i) == "true"){
-                val hour = times.getString(i).split(":")[0].toInt()
-                val minute = times.getString(i).split(":")[1].toInt()
+                if (currentTime == times.getString(i)){
+                    val hour = times.getString(i).split(":")[0].toInt()
+                    val minute = times.getString(i).split(":")[1].toInt()
 
-                calendar.set(Calendar.HOUR_OF_DAY, hour)
-                calendar.set(Calendar.MINUTE, minute)
-                if (calendar.timeInMillis < System.currentTimeMillis()) {
-                    calendar.add(Calendar.DAY_OF_YEAR, 1)
-                }
+                    calendar.set(Calendar.HOUR_OF_DAY, hour)
+                    calendar.set(Calendar.MINUTE, minute)
+                    if (calendar.timeInMillis < System.currentTimeMillis()) {
+                        calendar.add(Calendar.DAY_OF_YEAR, 1)
+                    }
 
-                val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+                    val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-                val alarmClockInfo =
-                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
-                alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!Settings.canDrawOverlays(this)) {
-                        val intent = Intent(
-                            Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
-                        )
-                        startActivity(intent)
-
+                    val alarmClockInfo =
+                        AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+                    alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (!Settings.canDrawOverlays(this)) {
+                            val intent = Intent(
+                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
+                            )
+                            startActivity(intent)
+                        }
                     }
                 }
-                Handler(Looper.getMainLooper()).postDelayed({
 
+                Handler(Looper.getMainLooper()).postDelayed({
                     addAlarm()
                 }, 3000)
             }
