@@ -51,6 +51,7 @@ class Sample : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_sample)
+        currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
 
         listSample = findViewById(R.id.listSample)
         progressSample = findViewById(R.id.progressSampe)
@@ -129,7 +130,6 @@ class Sample : AppCompatActivity() {
     private fun addAlarm(){
         val calendar = Calendar.getInstance()
         for (i in 0 until times.length()){
-            currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             if (switchS.getString(i) == "true"){
                 if (currentTime == times.getString(i)){
                     val hour = times.getString(i).split(":")[0].toInt()
@@ -157,6 +157,7 @@ class Sample : AppCompatActivity() {
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
+                    currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                     addAlarm()
                 }, 3000)
             }
