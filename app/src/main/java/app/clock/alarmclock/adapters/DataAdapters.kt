@@ -91,7 +91,6 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!Settings.canDrawOverlays(context)) {
                     val intent = Intent(
-                        //settings action to draw over other apps permission for API 23+
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$parent")
                     )
                     (context as Activity).startActivity(intent)
