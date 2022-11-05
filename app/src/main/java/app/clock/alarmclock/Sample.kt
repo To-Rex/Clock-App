@@ -138,8 +138,7 @@ class Sample : AppCompatActivity() {
 
                 val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-                val alarmClockInfo =
-                    AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
+                val alarmClockInfo = AlarmClockInfo(calendar.timeInMillis, getAlarmInfoPendingIntent())
                 alarmManager.setAlarmClock(alarmClockInfo, getAlarmActionPendingIntent())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (!Settings.canDrawOverlays(this)) {
