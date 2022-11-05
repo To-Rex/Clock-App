@@ -131,7 +131,7 @@ class Sample : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         for (i in 0 until times.length()) {
             if (switchS.getString(i) == "true") {
-                Toast.makeText(this, currentTime, Toast.LENGTH_SHORT).show()
+                currentTime = calendar.get(Calendar.HOUR_OF_DAY).toString()+":"+calendar.get(Calendar.MINUTE).toString()
                 if (currentTime == times.getString(i)) {
                     val hour = times.getString(i).split(":")[0].toInt()
                     val minute = times.getString(i).split(":")[1].toInt()
@@ -154,13 +154,20 @@ class Sample : AppCompatActivity() {
                                 Uri.parse("package:$parent")
                             )
                             startActivity(intent)
+                            check = true
                         }
                     }
                 }
+                if (check) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        addAlarm()
+                    }, 60000)
+                }else{
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        addAlarm()
+                    }, 3000)
+                }
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                     addAlarm()
-                }, 3000)
             }
         }
     }
