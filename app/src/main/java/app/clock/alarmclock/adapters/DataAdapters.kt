@@ -312,15 +312,7 @@ class DataAdapters(context: Context, timeList: ArrayList<GetTimes>) : BaseAdapte
     }
 
     private fun setAlarm(context: Context, hour: Int, minute: Int, position: Int) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmActvity::class.java)
-        intent.putExtra("position", position)
-        val pendingIntent = PendingIntent.getBroadcast(context, position, intent, 0)
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, hour)
-        calendar.set(Calendar.MINUTE, minute)
-        calendar.set(Calendar.SECOND, 0)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
