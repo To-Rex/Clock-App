@@ -149,11 +149,11 @@ class Sample : AppCompatActivity() {
                         finish()
                     }
                 }
-                Handler(Looper.getMainLooper()).postDelayed({
-                    addAlarm()
-                }, 900)
             }
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+            addAlarm()
+        }, 900)
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
