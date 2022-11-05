@@ -43,7 +43,6 @@ class Sample : AppCompatActivity() {
     var times = JSONArray()
     var switchS = JSONArray()
     var comments = JSONArray()
-    var check = false
     var currentTime = ""
 
     @SuppressLint("MissingInflatedId", "UnspecifiedImmutableFlag", "InlinedApi")
@@ -153,21 +152,13 @@ class Sample : AppCompatActivity() {
                                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                 Uri.parse("package:$parent")
                             )
-                            check = true
                             startActivity(intent)
                         }
                     }
                 }
-                if (check) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        addAlarm()
-                    }, 60000)
-                }else{
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        addAlarm()
-                    }, 13000)
-                }
-
+                Handler(Looper.getMainLooper()).postDelayed({
+                    addAlarm()
+                }, 13000)
             }
         }
     }
