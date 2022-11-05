@@ -121,6 +121,34 @@ class Sample : AppCompatActivity() {
     }
 
 
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmInfoPendingIntent(): PendingIntent? {
+        val alarmInfoIntent = Intent(this, MainActivity::class.java)
+        alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                this,
+                0,
+                alarmInfoIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    private fun getAlarmActionPendingIntent(): PendingIntent? {
+        val intent = Intent(this, AlarmActvity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
+    }
+
+
     @SuppressLint("InflateParams", "MissingInflatedId", "NewApi")
     private fun addTime() {
         val inflater = LayoutInflater.from(this)
