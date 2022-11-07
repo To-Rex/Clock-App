@@ -156,7 +156,7 @@ class Sample : AppCompatActivity() {
                         }
                     }
                 }
-                //timeout 10 seconds to check if the time is equal to the current time
+                
                 val timer = Timer()
                 timer.schedule(object : TimerTask() {
                     override fun run() {
