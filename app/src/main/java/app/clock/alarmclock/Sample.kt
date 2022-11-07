@@ -173,7 +173,7 @@ class Sample : AppCompatActivity() {
             override fun run() {
                 addAlarm()
             }
-        }, 10000)
+        }, 60000)
         super.onStop()
     }
 
