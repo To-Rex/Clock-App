@@ -161,20 +161,20 @@ class Sample : AppCompatActivity() {
     }
 
     private fun chesk(){
+        addAlarm()
         val timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
                 chesk()
-                addAlarm()
             }
-        }, 60000)
+        }, 50000)
     }
 
     override fun onStop() {
         chesk()
         super.onStop()
     }
-    
+
     override fun onStart() {
         chesk()
         super.onStart()
@@ -189,6 +189,8 @@ class Sample : AppCompatActivity() {
         chesk()
         super.onResume()
     }
+
+
 
 
 
