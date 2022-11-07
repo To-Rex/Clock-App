@@ -160,47 +160,37 @@ class Sample : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
+    private fun chesk(){
         val timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
+                chesk()
                 addAlarm()
             }
         }, 60000)
-        super.onStop()
     }
 
+    override fun onStop() {
+        chesk()
+        super.onStop()
+    }
+    
     override fun onStart() {
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                addAlarm()
-            }
-        }, 60000)
+        chesk()
         super.onStart()
     }
 
     override fun onPause() {
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                addAlarm()
-            }
-        }, 60000)
+        chesk()
         super.onPause()
     }
 
     override fun onResume() {
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                addAlarm()
-            }
-        }, 60000)
+        chesk()
         super.onResume()
     }
 
-    
+
 
 
     @SuppressLint("UnspecifiedImmutableFlag")
