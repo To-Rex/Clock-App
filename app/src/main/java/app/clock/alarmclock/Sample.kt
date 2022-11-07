@@ -162,10 +162,7 @@ class Sample : AppCompatActivity() {
                     override fun run() {
                         addAlarm()
                     }
-                }, 10000)
-            }else{
-                //stop alarm
-                
+                }, 60000)
             }
         }
     }
@@ -199,6 +196,7 @@ class Sample : AppCompatActivity() {
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmActionPendingIntent(): PendingIntent? {
         val intent = Intent(this, AlarmActvity::class.java)
+        intent.putExtra("time","")
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
