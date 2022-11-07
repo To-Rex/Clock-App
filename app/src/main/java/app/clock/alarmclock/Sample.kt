@@ -163,6 +163,9 @@ class Sample : AppCompatActivity() {
                         addAlarm()
                     }
                 }, 10000)
+            }else{
+                //stop alarm
+                
             }
         }
     }
