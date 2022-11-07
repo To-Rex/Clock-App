@@ -156,13 +156,10 @@ class Sample : AppCompatActivity() {
                         }
                     }
                 }
-                
-                val timer = Timer()
-                timer.schedule(object : TimerTask() {
-                    override fun run() {
-                        addAlarm()
-                    }
-                }, 60000)
+                //sllep for 10 seconds
+
+                Thread.sleep(10000)
+                addAlarm()
             }
         }
     }
