@@ -156,17 +156,8 @@ class Sample : AppCompatActivity() {
                         }
                     }
                 }
-                Thread.sleep(10000)
             }
         }
-
-        val timer = Timer()
-        timer.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                addAlarm()
-            }
-        }, 0, 10000)
-
     }
 
     override fun onStop() {
@@ -178,6 +169,39 @@ class Sample : AppCompatActivity() {
         }, 60000)
         super.onStop()
     }
+
+    override fun onStart() {
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                addAlarm()
+            }
+        }, 60000)
+        super.onStart()
+    }
+
+    override fun onPause() {
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                addAlarm()
+            }
+        }, 60000)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        val timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                addAlarm()
+            }
+        }, 60000)
+        super.onResume()
+    }
+
+    
+
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun getAlarmInfoPendingIntent(): PendingIntent? {
